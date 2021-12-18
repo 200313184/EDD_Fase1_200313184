@@ -1,3 +1,5 @@
+import {nodoMatriz, nodoInicio, Matriz} from './matriz.js';
+
 class nodoCliente{
     constructor(id, nombre, correo){
         this.id = id;
@@ -28,6 +30,48 @@ class listaCliente{
     }
 }
 
+class nodoMeses{
+    constructor(id, nombre){
+        this.id = id;
+        this.nombre = nombre;
+        this.sig = null;
+        this.ant = null;
+        this.Matriz = new Matriz();
+    }
+}
+
+class listaMeses{
+    constructor(){
+        this.inicio = null;
+    }
+
+    insertar(id, nombre){
+        let nuevo = new nodoMeses(id, nombre);
+        if(this.inicio == null){
+            this.inicio = nuevo;
+        }else{
+            let pivote = this.inicio;
+            while(pivote.sig != null){
+                pivote = pivote.sig;
+            }
+            pivote.sig = nuevo;
+            nuevo.ant = pivote;
+        }
+    }
+
+    insertarCalendario(nodo, evento, hora, dia){
+        if(nodo.Matriz == null){
+            nodo.Matriz = new Matriz();
+        }
+        let inserccion = nodo.Matriz.insertar(evento, hora, dia);
+        if(!inserccion){
+            console.log('Error al insertar en el calendario, favor revisar datos');
+        }else{
+            console.log('Evento insertado con exito');
+        }
+    }
+}
+
 class nodoAvl{
     constructor(id, nombre, edad, correo, password){
         this.id = id;
@@ -38,6 +82,7 @@ class nodoAvl{
         this.izq = null;
         this.der = null;
         this.lista_clientes = null;
+        this.lista_meses = null;
         this.altura = 0;
     }
 }
@@ -62,6 +107,22 @@ class avl{
             nodo.lista_clientes = new listaCliente();
         }
         nodo.lista_clientes.insertar(id, nombre, correo);
+    }
+
+    insertarMeses(nodo){
+        nodo.lista_meses = new listaMeses();
+        nodo.lista_meses.insertar(1, 'Enero');
+        nodo.lista_meses.insertar(2, 'Febrero');
+        nodo.lista_meses.insertar(3, 'Marzo');
+        nodo.lista_meses.insertar(4, 'Abril');
+        nodo.lista_meses.insertar(5, 'Mayo');
+        nodo.lista_meses.insertar(6, 'Junio');
+        nodo.lista_meses.insertar(7, 'Julio');
+        nodo.lista_meses.insertar(8, 'Agosto');
+        nodo.lista_meses.insertar(9, 'Septiembre');
+        nodo.lista_meses.insertar(10, 'Octubre');
+        nodo.lista_meses.insertar(11, 'Noviembre');
+        nodo.lista_meses.insertar(12, 'Diciembre');
     }
 
     insertar_recursiva(raiz_actual,nuevo){

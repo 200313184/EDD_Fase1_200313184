@@ -1,4 +1,4 @@
-class nodoMatriz{
+export class nodoMatriz{
     constructor(evento, hora, dia){
         this.evento = evento;
         this.hora = hora;
@@ -10,14 +10,14 @@ class nodoMatriz{
     }
 }
 
-class nodoInicio{
+export class nodoInicio{
     constructor(){
         this.filas = null;
         this.columnas = null;
     }
 }
 
-class Matriz{
+export class Matriz{
     constructor(){
         this.inicio = new nodoInicio(); 
     }
@@ -153,7 +153,9 @@ class Matriz{
         let nodoHora = this.insertarFila(nuevo);
         let nodoDia = this.insertarColumna(nuevo);
         if(this.enlazarFila(nodoHora, nuevo)){
-            this.enlazarColumna(nodoDia, nuevo)
+            return this.enlazarColumna(nodoDia, nuevo);
+        }else{
+            return false;
         }
     }
 }
