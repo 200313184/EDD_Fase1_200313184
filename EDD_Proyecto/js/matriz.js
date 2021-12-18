@@ -7,6 +7,7 @@ export class nodoMatriz{
         this.der = null;
         this.arriba = null;
         this.abajo = null;
+        this.identificador = 0;
     }
 }
 
@@ -20,6 +21,7 @@ export class nodoInicio{
 export class Matriz{
     constructor(){
         this.inicio = new nodoInicio(); 
+        this.contadorNodo = 0;
     }
 
     insertarFila(nuevo){
@@ -156,6 +158,137 @@ export class Matriz{
             return this.enlazarColumna(nodoDia, nuevo);
         }else{
             return false;
+        }
+    }
+
+    graficar(){
+        let cadena="digraph arbol {\n";
+        cadena+= "rankdir=UD;\n";
+        cadena+= "node[shape=box];\n";
+        cadena+= "{\n";
+        cadena+= "rank=min;";
+        cadena+= "m[label=\"matriz\"];";
+        cadena+= this.graficar_filas();
+        cadena+="}\n";
+        cadena+=this.graficar_columnas();
+        cadena+="\n";
+        cadena+= this.enlazar_filas();
+        cadena+="\n";
+        cadena+= this.enlazar_columnas();
+        cadena+="\n";
+        cadena+= this.recorrer_filas();
+        cadena+="\n";
+        cadena+= this.recorrer_columnas();
+        cadena+="}\n";
+        console.log(cadena);
+    }
+
+    graficar_filas(){
+        let pivote = this.inicio.filas;
+        let cadena = "";
+        while(pivote != null){
+            cadena+="x" + pivote.hora + "[label=\"Hora: " + pivote.hora + "\",rankdir=LR];\n";
+            pivote = pivote.abajo;
+        }
+        return cadena;
+    }
+
+    graficar_columnas(){
+        let cadena = "";
+        let pivote = this.inicio.columnas;
+        while(pivote != null){
+            cadena+="{\n";
+            if(pivote.der != null){
+                cadena+="rank=same;";
+            }else{
+                cadena+="rank=max;";
+            }
+            cadena+="y" + pivote.dia + "[label=\"Dia: " + pivote.dia + "\"];\n";
+            let piv = pivote.abajo;
+            while(piv != null){
+                piv.identificador = this.contadorNodo;
+                this.contadorNodo++;
+                cadena+="n" + piv.identificador + "[label=\"" + piv.evento + "\"];\n";
+                pov = piv.abajo;
+            }
+            cadena+="}\n\n";
+            pivote = pivote.der;
+        }
+    }
+
+    enlazar_filas(){
+        let pivote = this.inicio.filas;
+        let cadena = "m";
+        while(pivote != null){
+            if(pivote.abajo != null){
+                cadena+="->x" + pivote.hora;
+            }else{
+                cadena+="->x" + pivote.hora + ";\n";
+            }
+            pivote = pivote.abajo;
+        }
+        return cadena;
+    }
+
+    enlazar_columnas(){
+        let pivote = this.inicio.columnas;
+        let cadena = "";
+        if(pivote != null){
+            cadena+= "m->y" + pivote.dia + ";\n"; 
+        }
+        while(pivote.abajo != null){
+            cadena+=  "y" + pivote.dia + "->y" + pivote.abajo.dia + ";\n";
+            cadena+=  "y" + pivote.abajo.dia + "->y" + pivote.dia + "[rankdir=UD];\n";
+            pivote = pivote.abajo;
+        }
+        return cadena;
+    }
+
+    recorrer_filas(){
+        let cadena = "";
+        let pivote = this.inicio.filas;
+        while(pivote != null){
+            cadena+="x" + pivote.hora;
+            let piv = pivote.der;
+            while(piv != null){
+                if(piv.der != null){
+                    cadena+="->n" + piv.identificador;
+                }else{
+                    cadena+="->n" + piv.identificador + ";\n";
+                    break;
+                }
+                pov = piv.der;
+            }
+            cadena+="n" + piv.identificador;
+            while(piv != pivote){
+                if(piv.izq != pivote){
+                    cadena+="->n" + piv.identificador;
+                }else{
+                    cadena+="->n" + piv.identificador + "->x"+ pivote.hora +";\n";
+                    break;
+                }
+                pov = piv.izq;
+            }
+            cadena+="\n";
+            pivote = pivote.abajo;
+        }
+    }
+
+    recorrer_columnas(){
+        let cadena = "";
+        let pivote = this.inicio.filas;
+        while(pivote != null){
+            let piv = pivote.abajo;
+            cadena+="y" + pivote.dia +"->n" + piv.identificador + "[constraint=false];\n";
+            cadena+="n" + piv.identificador + "->y" + pivote.dia + "[constraint=false];\n";
+            piv =  pivote.abajo;
+            while(piv.abajo != null){
+                cadena+="n" + pivote.identificador +"->n" + piv.abajo.identificador + "[constraint=false];\n";
+                cadena+="n" + piv.abajo.identificador + "->n" + pivote.dia + "[constraint=false];\n";
+                pov = piv.der;
+            }
+            cadena+="\n";
+            pivote = pivote.der;
         }
     }
 }
