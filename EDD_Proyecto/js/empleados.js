@@ -194,4 +194,59 @@ class avl{
         let aux = this.r_derecha(nodo);
         return aux;
     }
+
+    graficar(){
+        let cadena="digraph arbol {\n";
+        cadena+= this.graficar_nodos(this.raiz);
+        cadena+="\n";
+        cadena+=this.recorrido(this.raiz);
+        cadena+="\n}";
+
+        console.log(cadena);
+    }
+
+    graficar_nodos(raiz_actual){
+        let nodos ="";
+        if(raiz_actual != null){
+            nodos+= "n"+raiz_actual.id+"[label=\""+raiz_actual.id + ":"+raiz_actual.nombre + "-" + raiz_actual.correo+"\"]\n";
+            nodos+=this.graficar_nodos(raiz_actual.izq);
+            nodos+=this.graficar_nodos(raiz_actual.der);
+        }
+        return nodos;
+    }
+
+    recorrido(raiz_actual){
+        let cadena="";
+        if(raiz_actual != null){
+            cadena += this.recorrido(raiz_actual.izq);
+            cadena += this.recorrido(raiz_actual.der);
+            if(raiz_actual.izq != null){
+                cadena+="n"+raiz_actual.id + "-> n"+raiz_actual.id + ":"+raiz_actual.nombre + "-" + raiz_actual.correo+"\n";
+            }
+            if(raiz_actual.der != null){
+                cadena+="n"+raiz_actual.id + "-> n"+raiz_actual.id + ":"+raiz_actual.nombre + "-" + raiz_actual.correo+"\n";
+            }
+        }
+        return cadena;
+    }
+
+    graficarClientes(nodo){
+        let cadena="digraph clientes {\n";
+        let pivote = nodo.lista_clientes.inicio;
+        while(pivote != null){
+            cadena += "n" + pivote.id + "[label = \""+ pivote.id + ":" + pivote.nombre +"];\n";
+            pivote = pivote.sig; 
+        }
+        pivote = nodo.lista_clientes.inicio;
+        while(pivote != null){
+            if(pivote.sig != null){
+                cadena += "n" + pivote.id +"->";
+            }else{
+                cadena += "n" + pivote.id +";\n";
+            }
+            pivote = pivote.sig; 
+        }
+        cadena+="}\n";
+        console.log(cadena);
+    }
 }
