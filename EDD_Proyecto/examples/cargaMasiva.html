@@ -33,21 +33,21 @@
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item ">
-            <a class="nav-link" href="./vendedor.html">
+            <a class="nav-link" href="./admin.html">
               <i class="material-icons">person</i>
-              <p>Administracion de clientes</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./calendario.html">
-              <i class="material-icons">content_paste</i>
-              <p>Agregar Evento</p>
+              <p>Administracion de usuarios</p>
             </a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="./verCalendario.html">
+            <a class="nav-link" href="./cargaMasiva.html">
               <i class="material-icons">content_paste</i>
-              <p>Ver calendario</p>
+              <p>Cargas Masivas</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./usuarios.html">
+              <i class="material-icons">content_paste</i>
+              <p>Reportes</p>
             </a>
           </li>
         </ul>
@@ -60,12 +60,17 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Reporte</h4>
-                  <p class="card-category">Calendario</p>
+                  <h4 class="card-title">Carga Masiva</h4>
+                  <p class="card-category">Usuarios</p>
                 </div>
                 <div class="card-body">
                   <form>
-                    <img src="../images/img-01.png" class="img-fluid" alt="Responsive image">
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Cargar archivo de usuarios</label>
+                        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                      </div>
+                    <button type="submit" class="btn btn-primary pull-right">Cargar Usuarios</button>
+                    <div class="clearfix"></div>
                   </form>
                 </div>
               </div>
