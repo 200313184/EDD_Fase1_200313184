@@ -1,6 +1,6 @@
 class nodoAbb{
     constructor(id, nombre, direccion, telefono, correo){
-        this.id = id;
+        this.id = parseInt(id, 10);
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -19,9 +19,11 @@ class abb{
         let nuevo = new nodoAbb(id, nombre, direccion, telefono, correo);
         if(this.raiz == null){
             this.raiz= nuevo;
+            alert('Proveedor insertado con exito');
         }else{
             this.raiz = this.insertar_recursiva(this.raiz,nuevo);
         }
+        console.log(this.graficar());
     }
 
     insertar_recursiva(raiz_actual,nuevo){
@@ -31,11 +33,12 @@ class abb{
             }else if(raiz_actual.id < nuevo.id){
                 raiz_actual.der = this.insertar_recursiva(raiz_actual.der,nuevo);
             }else{
-                console.log("ID DE PROVEEDOR YA EXISTE");
+                alert('Proveedor no insertado, id de proveedor ya existe');
             }
             return raiz_actual;
         }else{
             raiz_actual = nuevo;
+            alert('Proveedor insertado con exito');
             return raiz_actual;
         }
     }

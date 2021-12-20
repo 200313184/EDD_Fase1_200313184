@@ -72,7 +72,7 @@ class listaMeses{
 
 class nodoAvl{
     constructor(id, nombre, edad, correo, password){
-        this.id = id;
+        this.id = parseInt(id, 10);
         this.nombre = nombre;
         this.edad = edad;
         this.password = password;

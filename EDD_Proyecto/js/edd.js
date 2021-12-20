@@ -5,10 +5,9 @@ let proveedores = new abb();
 function inicializar_listas(){
     vendedores = new avl();
     vendedores.insertar(200313184,"Admin", 28, "glopez1206gmail.com", "1234");
-    console.log(vendedores.graficar())
     proveedores = new abb();
 }
-
+ 
 function validar_usuario(){
     let nuevo_id = document.getElementById('id_usuario').value;
     let nuevo_pass = document.getElementById('pass').value;
