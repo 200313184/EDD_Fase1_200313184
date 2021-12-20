@@ -25,3 +25,20 @@ function inicializar_listas(){
         location.href="../login.html";
     }
 }
+
+function agregar_cliente(){
+    let id_cliente1 = document.getElementById('id_cliente1').value;
+    let nombre_cliente1 = document.getElementById('nombre_cliente1').value;
+    let correo_cliente1 = document.getElementById('correo_cliente1').value;
+    let vend = vendedores.buscar(usuario.id);
+    vend.lista_clientes.insertar(id_cliente1, nombre_cliente1, correo_cliente1);
+    vendedores.graficarClientes(vend);
+}
+
+function eliminar_cliente(){
+    let nombre_cliente2 = document.getElementById('nombre_cliente2').value;
+    let correo_cliente2 = document.getElementById('correo_cliente2').value;
+    let vend = vendedores.buscar(usuario.id);
+    vend.lista_clientes.eliminar(nombre_cliente2, correo_cliente2);
+    vendedores.graficarClientes(vend);
+}

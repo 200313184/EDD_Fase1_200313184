@@ -26,6 +26,32 @@ class listaCliente{
             nuevo.ant = pivote;
         }
     }
+
+    eliminar(nombre, correo){
+        if(this.inicio != null){
+            if(this.inicio.nombre == nombre && this.inicio.correo == correo){
+                this.inicio = this.inicio.sig;
+                if(this.inicio != null){
+                    this.inicio.ant = null;
+                }
+            }else{
+                let pivote = this.inicio;
+                while(pivote.sig != null){
+                    if(pivote.sig.nombre == nombre && pivote.sig.correo == correo){
+                        pivote.sig = pivote.sig.sig;
+                        if(pivote.sig != null){
+                            pivote.sig.ant = pivote;
+                        }
+                        console.log("Cliente eliminado con exito");
+                        break;
+                    }
+                    pivote = pivote.sig;
+                }
+            }
+        }else{
+            console.log("Error al eliminar, lista vacia");
+        }
+    }
 }
 
 class nodoMeses{
@@ -90,8 +116,8 @@ class nodoAvl{
         this.correo = correo;
         this.izq = null;
         this.der = null;
-        this.lista_clientes = null;
-        this.lista_meses = null;
+        this.lista_clientes = new listaCliente();
+        this.lista_meses = new listaMeses();
         this.altura = 0;
     }
 }

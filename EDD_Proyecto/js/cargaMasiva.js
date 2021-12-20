@@ -55,6 +55,8 @@ function cargaVendedores(json){
     for(x of json.vendedores){
         vendedores.insertar(x.id, x.nombre, x.edad, x.correo, x.password);
     }
+    var lista_vendedores = CircularJSON.stringify(vendedores);
+    sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
 }
 
 function cargaClientes(json){
@@ -67,12 +69,16 @@ function cargaClientes(json){
             }
         }
     }
+    var lista_vendedores = CircularJSON.stringify(vendedores);
+    sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
 }
 
 function cargaProveedores(json){
     for(x of json.proveedores){
         proveedores.insertar(x.id, x.nombre, x.direccion, x.telefono, x.correo);
     }
+    var lista_proveedores = CircularJSON.stringify(proveedores);
+    sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
 }
 
 function cargaEventos(json){
@@ -87,4 +93,6 @@ function cargaEventos(json){
             }
         }
     }
+    var lista_proveedores = CircularJSON.stringify(proveedores);
+    sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
 }
