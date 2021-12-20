@@ -1,3 +1,31 @@
+let vendedores = new avl();
+let proveedores = new abb();
+let usuario = new nodoAvl();
+
+function inicializar_listas(){
+    console.log("Entro a inicializar listas ");
+    var tem_vendedores = JSON.parse(sessionStorage.getItem("vendedores"));
+    vendedores = new avl();
+    tem_vendedores = CircularJSON.parse(tem_vendedores);
+    Object.assign(vendedores,tem_vendedores);
+
+    var tem_proveedores = JSON.parse(sessionStorage.getItem("proveedores"));
+    proveedores = new avl();
+    tem_proveedores = CircularJSON.parse(tem_proveedores);
+    Object.assign(proveedores,tem_proveedores);
+
+    var tem_usuarios = JSON.parse(sessionStorage.getItem("usuario"));
+    usuario = new nodoAvl();
+    tem_usuarios = CircularJSON.parse(tem_usuarios);
+    Object.assign(usuario,tem_usuarios);
+
+    console.log(usuario);
+
+    if(usuario.id == undefined){
+        location.href="../login.html";
+    }
+}
+
 function loadFileAsText(){
     var fileToLoad = document.getElementById("fileMassive").files[0];
     var e = document.getElementById("tipo");
@@ -13,7 +41,6 @@ function loadFileAsText(){
 function realizarCarga(texto,tipo){
     var json = JSON.parse(texto);
     if(tipo==1){
-        console.log("Carga vendedores");
         cargaVendedores(json);
     }else if(tipo==2){
         cargaClientes(json);
@@ -26,11 +53,7 @@ function realizarCarga(texto,tipo){
 
 function cargaVendedores(json){
     for(x of json.vendedores){
-        console.log(x.id);
-        console.log(x.nombre);
-        console.log(x.edad);
-        console.log(x.correo);
-        console.log(x.password);
+        vendedores.insertar(x.id, x.nombre, x.edad, x.correo, x.password);
     }
 }
 
@@ -38,31 +61,30 @@ function cargaClientes(json){
     for(x of json.vendedores){
         for(y of x.clientes){
             console.log(x.id);
-            console.log(y.id);
-            console.log(y.nombre);
-            console.log(y.correo);
+            let vend = vendedores.buscar(x.id);
+            if(vend != null){
+                vendedores.insertarCliente(vend, y.id, y.nombre, t.correo);
+            }
         }
     }
 }
 
 function cargaProveedores(json){
     for(x of json.proveedores){
-        console.log(x.id);
-        console.log(x.nombre);
-        console.log(x.direccion);
-        console.log(x.telefono);
-        console.log(x.correo);
+        proveedores.insertar(x.id, x.nombre, x.direccion, x.telefono, x.correo);
     }
 }
 
 function cargaEventos(json){
     for(x of json.vendedores){
         for(y of x.eventos){
-            console.log(x.id);
-            console.log(y.mes);
-            console.log(y.dia);
-            console.log(y.hora);
-            console.log(y.desc);
+            let vend = vendedores.buscar(x.id);
+            if(vend != null){
+                let mes = vendedores.buscarMeses(vend, y.mes);
+                if(mes != null){
+                    ven.lista_meses.insertarCalendario(mes, y.desc, y.hora, y.dia);
+                }
+            }
         }
     }
 }

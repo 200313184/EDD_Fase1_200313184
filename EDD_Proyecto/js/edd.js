@@ -21,8 +21,7 @@ function validar_usuario(){
         sessionStorage.setItem("usuario",JSON.stringify(l_usuario));
         location.href="./examples/admin.html";
     }else{
-        console.log(nuevo_id);
-        let usuario = this.vendedores.buscar(nuevo_id);
+        let usuario = vendedores.buscar(nuevo_id);
         if(usuario != null){
             console.log(nuevo_pass);
             if(usuario.password == nuevo_pass){

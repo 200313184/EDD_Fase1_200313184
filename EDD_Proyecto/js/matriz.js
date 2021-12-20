@@ -1,8 +1,8 @@
 class nodoMatriz{
     constructor(evento, hora, dia){
         this.evento = evento;
-        this.hora =  parseInt(hora, 10);
-        this.dia = parseInt(dia, 10);
+        this.hora =  hora;
+        this.dia = dia;
         this.izq = null;
         this.der = null;
         this.arriba = null;

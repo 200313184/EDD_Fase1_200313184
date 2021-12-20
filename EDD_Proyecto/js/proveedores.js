@@ -1,6 +1,6 @@
 class nodoAbb{
     constructor(id, nombre, direccion, telefono, correo){
-        this.id = parseInt(id, 10);
+        this.id = id;
         this.nombre = nombre;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -52,13 +52,13 @@ class abb{
     }
 
     buscarRecursiva(nodo, id){
-        if(nodo.id < id){
+        if(id < nodo.id){
             if(nodo.izq != null){
                 return this.buscarRecursiva(nodo.izq, id);
             }else{
                 return null;
             }
-        }else if(nodo.id > id){
+        }else if(id > nodo.id){
             if(nodo.der != null){
                 return this.buscarRecursiva(nodo.der, id);
             }else{

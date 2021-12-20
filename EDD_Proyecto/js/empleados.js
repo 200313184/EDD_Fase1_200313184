@@ -1,6 +1,6 @@
 class nodoCliente{
     constructor(id, nombre, correo){
-        this.id = id;
+        this.id = parseInt(id, 10);
         this.nombre = nombre;
         this.correo = correo;
         this.sig = null;
@@ -68,6 +68,17 @@ class listaMeses{
             console.log('Evento insertado con exito');
         }
     }
+
+    buscar(id){
+        let pivote = this.inicio;
+        while(pivote != null){
+            if(pivote.id == id){
+                return pivote;
+            }
+            pivote = pivote.sig;
+        }
+        return null;
+    }
 }
 
 class nodoAvl{
@@ -91,7 +102,8 @@ class avl{
     }
 
     insertar(id, nombre, edad, correo, password){
-        let nuevo = new nodoAvl(id, nombre, edad, correo, password);
+        let nuevo = new nodoAvl(parseInt(id, 10), nombre, edad, correo, password);
+        this.insertarMeses(nuevo);
         if(this.raiz == null){
             this.raiz= nuevo;
         }else{
@@ -108,13 +120,13 @@ class avl{
     }
 
     buscarRecursiva(nodo, id){
-        if(nodo.id < id){
+        if(id < nodo.id){
             if(nodo.izq != null){
                 return this.buscarRecursiva(nodo.izq, id);
             }else{
                 return null;
             }
-        }else if(nodo.id > id){
+        }else if(id > nodo.id){
             if(nodo.der != null){
                 return this.buscarRecursiva(nodo.der, id);
             }else{
@@ -146,6 +158,14 @@ class avl{
         nodo.lista_meses.insertar(10, 'Octubre');
         nodo.lista_meses.insertar(11, 'Noviembre');
         nodo.lista_meses.insertar(12, 'Diciembre');
+    }
+
+    buscarMeses(nodo, id){
+        let pivote = nodo.lista_meses;
+        if(nodo.lista_meses == null){
+            this.insertarMeses(nodo);
+        }
+        return pivote.buscar(id);
     }
 
     insertar_recursiva(raiz_actual,nuevo){
