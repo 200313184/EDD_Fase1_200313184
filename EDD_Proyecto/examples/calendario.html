@@ -19,7 +19,7 @@
   <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
-<body class="dark-edition">
+<body class="dark-edition" onload="inicializar_listas()">
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
       <!--
@@ -67,7 +67,7 @@
                   <form>
                     <div class="row">
                       <div class="col-md-4">                        
-                        <select class="form-control form-control-lg" style="color:black">
+                        <select class="form-control form-control-lg" style="color:black" id = "mes_calendario">
                         <option selected>Seleccionar mes</option>
                         <option value="1" >Enero</option>
                         <option value="2" >Febrero</option>
@@ -84,7 +84,7 @@
                         </select>
                       </div>
                       <div class="col-md-4">
-                        <select class="form-control form-control-lg" style="color:black">
+                        <select class="form-control form-control-lg" style="color:black" id = "dia_calendario">
                             <option selected>Seleccionar dia</option>
                             <option value="1" >1</option>
                             <option value="2" >2</option>
@@ -120,17 +120,17 @@
                             </select>
                       </div>
                       <div class="col-md-4">
-                        <select class="form-control form-control-lg" style="color:black">
+                        <select class="form-control form-control-lg" style="color:black" id = "hora_calendario">
                             <option selected>Seleccionar hora</option>
-                            <option value="01" >01</option>
-                            <option value="02" >02</option>
-                            <option value="03" >03</option>
-                            <option value="04" >04</option>
-                            <option value="05" >05</option>
-                            <option value="06" >06</option>
-                            <option value="07" >07</option>
-                            <option value="08" >08</option>
-                            <option value="09" >09</option>
+                            <option value="1" >01</option>
+                            <option value="2" >02</option>
+                            <option value="3" >03</option>
+                            <option value="4" >04</option>
+                            <option value="5" >05</option>
+                            <option value="6" >06</option>
+                            <option value="7" >07</option>
+                            <option value="8" >08</option>
+                            <option value="9" >09</option>
                             <option value="10" >10</option>
                             <option value="11" >11</option>
                             <option value="12" >12</option>
@@ -155,12 +155,12 @@
                             <label>Descripcion</label>
                             <div class="form-group">
                               <label class="bmd-label-floating"> Escribe algo sobre la actividad</label>
-                              <textarea class="form-control" rows="5"></textarea>
+                              <textarea class="form-control" rows="5" id = "desc_calendario"></textarea>
                             </div>
                           </div>
                         </div>
                       </div>
-                    <button type="submit" class="btn btn-primary pull-right">Agregar</button>
+                    <button type="button" class="btn btn-primary pull-right" onclick="agregar_actividad()">Agregar</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>
@@ -356,6 +356,11 @@
       });
     });
   </script>
+  <script src="../js/circular-json.js"></script>
+  <script src="../js/empleados.js"></script>
+  <script src="../js/matriz.js"></script>
+  <script src="../js/proveedores.js"></script>
+  <script src="../js/calendario.js"></script>
 </body>
 
 </html>

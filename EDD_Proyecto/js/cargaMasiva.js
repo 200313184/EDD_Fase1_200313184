@@ -88,7 +88,7 @@ function cargaEventos(json){
             if(vend != null){
                 let mes = vendedores.buscarMeses(vend, y.mes);
                 if(mes != null){
-                    ven.lista_meses.insertarCalendario(mes, y.desc, y.hora, y.dia);
+                    vend.lista_meses.insertarCalendario(mes, y.desc, y.hora, y.dia);
                 }
             }
         }
