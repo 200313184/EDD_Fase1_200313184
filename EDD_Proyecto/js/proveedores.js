@@ -40,20 +40,48 @@ class abb{
         }
     }
 
+    buscar(id){
+        if(this.raiz == null){
+            return null;
+        }else{
+            return this.buscarRecursiva(this.raiz, id);
+        }
+    }
+
+    buscarRecursiva(nodo, id){
+        if(nodo.id < id){
+            if(nodo.izq != null){
+                return this.buscarRecursiva(nodo.izq, id);
+            }else{
+                return null;
+            }
+        }else if(nodo.id > id){
+            if(nodo.der != null){
+                return this.buscarRecursiva(nodo.der, id);
+            }else{
+                return null;
+            }
+        }else{
+            return nodo;
+        }
+    }
+
     graficar(){
         let cadena="digraph arbol {\n";
+        cadena += "node [shape=record];\n";
         cadena+= this.graficar_nodos(this.raiz);
         cadena+="\n";
         cadena+=this.recorrido(this.raiz);
         cadena+="\n}";
 
         console.log(cadena);
+        return cadena;
     }
 
     graficar_nodos(raiz_actual){
         let nodos ="";
         if(raiz_actual != null){
-            nodos+= "n"+raiz_actual.id+"[label=\""+raiz_actual.id + ":" + raiz_actual.nombre+"\"]\n";
+            nodos+= "n"+raiz_actual.id+"[label=\"<f0>|<f1>"+raiz_actual.id + ":"+raiz_actual.nombre + "-" + raiz_actual.correo+"|<f2>\"]\n";
             nodos+=this.graficar_nodos(raiz_actual.izq);
             nodos+=this.graficar_nodos(raiz_actual.der);
         }
@@ -66,10 +94,10 @@ class abb{
             cadena += this.recorrido(raiz_actual.izq);
             cadena += this.recorrido(raiz_actual.der);
             if(raiz_actual.izq != null){
-                cadena+="n"+raiz_actual.id + "-> n"+raiz_actual.izq.id  + ":" + raiz_actual.nombre +"\n";
+                cadena+="n"+raiz_actual.id + ":f0-> n"+raiz_actual.izq.id + ":f1;\n";
             }
             if(raiz_actual.der != null){
-                cadena+="n"+raiz_actual.id + "-> n"+raiz_actual.der.id  + ":" + raiz_actual.nombre +"\n";
+                cadena+="n"+raiz_actual.id + ":f2-> n"+raiz_actual.der.id + ":f1;\n";
             }
         }
         return cadena;

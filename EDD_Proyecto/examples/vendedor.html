@@ -19,7 +19,7 @@
   <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
-<body class="dark-edition">
+<body class="dark-edition" onload="inicializar_listas()">
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
       <!--
@@ -82,17 +82,66 @@
                     <button type="submit" class="btn btn-primary pull-right">Agregar</button>
                     <div class="clearfix"></div>
                   </form>
+                  <form>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <select class="form-control form-control-lg" style="color:black">
+                            <option selected>Seleccionar ID</option>
+                            <option value="1" >1</option>
+                            <option value="2" >2</option>
+                            <option value="3" >3</option>
+                            <option value="4" >4</option>
+                            <option value="5" >5</option>
+                            <option value="6" >6</option>
+                            <option value="7" >7</option>
+                            <option value="8" >8</option>
+                            <option value="9" >9</option>
+                            <option value="10" >10</option>
+                            <option value="11" >11</option>
+                            <option value="12" >12</option>
+                            <option value="13" >13</option>
+                            <option value="14" >14</option>
+                            <option value="15" >15</option>
+                            <option value="16" >16</option>
+                            <option value="17" >17</option>
+                            <option value="18" >18</option>
+                            <option value="19" >19</option>
+                            <option value="20" >20</option>
+                            <option value="21" >21</option>
+                            <option value="22" >22</option>
+                            <option value="23" >23</option>
+                            <option value="24" >24</option>
+                            <option value="25" >25</option>
+                            <option value="26" >26</option>
+                            <option value="27" >27</option>
+                            <option value="28" >28</option>
+                            <option value="29" >29</option>
+                            <option value="30" >30</option>
+                            <option value="31" >31</option>
+                            </select>>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">User</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email</label>
+                          <input type="email" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Eliminar</button>
+                    <div class="clearfix"></div>
+                  </form>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <script>
-        const x = new Date().getFullYear();
-        let date = document.getElementById('date');
-        date.innerHTML = '&copy; ' + x + date.innerHTML;
-      </script>
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -275,6 +324,11 @@
       });
     });
   </script>
+  <script src="../js/circular-json.js"></script>
+  <script src="../js/empleados.js"></script>
+  <script src="../js/matriz.js"></script>
+  <script src="../js/proveedores.js"></script>
+  <script src="../js/vendedor.js"></script>
 </body>
 
 </html>

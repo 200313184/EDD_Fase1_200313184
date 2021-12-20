@@ -1,4 +1,3 @@
-
 (function ($) {
     "use strict";
 
@@ -9,6 +8,7 @@
 
     $('.validate-form').on('submit',function(){
         var check = true;
+        console.log("Entrando a validacion");
 
         for(var i=0; i<input.length; i++) {
             if(validate(input[i]) == false){
@@ -16,7 +16,7 @@
                 check=false;
             }
         }
-
+        
         return check;
     });
 

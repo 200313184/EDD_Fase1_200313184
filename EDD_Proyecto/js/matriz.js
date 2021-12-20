@@ -1,4 +1,4 @@
-export class nodoMatriz{
+class nodoMatriz{
     constructor(evento, hora, dia){
         this.evento = evento;
         this.hora = hora;
@@ -11,14 +11,14 @@ export class nodoMatriz{
     }
 }
 
-export class nodoInicio{
+class nodoInicio{
     constructor(){
         this.filas = null;
         this.columnas = null;
     }
 }
 
-export class Matriz{
+class Matriz{
     constructor(){
         this.inicio = new nodoInicio(); 
         this.contadorNodo = 0;
