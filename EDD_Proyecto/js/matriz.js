@@ -185,6 +185,7 @@ class Matriz{
         cadena+= this.recorrer_columnas();
         cadena+="}\n";
         console.log(cadena);
+        return cadena;
     }
 
     graficar_filas(){

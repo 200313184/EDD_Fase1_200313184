@@ -100,6 +100,6 @@ function cargaEventos(json){
         }
         vend.lista_meses = meses;
     }
-    var lista_proveedores = CircularJSON.stringify(proveedores);
-    sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
+    var lista_vendedores = CircularJSON.stringify(vendedores);
+    sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
 }
