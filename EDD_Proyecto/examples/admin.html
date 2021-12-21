@@ -120,10 +120,56 @@
                     <div class="col-md-4">
                       <div class="form-group">
                         <label class="bmd-label-floating">ID</label>
-                        <input type="text" id="id_proveedor" class="form-control">
-                        <button type="button" class="btn btn-primary pull-right" >Eliminar</button>
+                        <input type="text" id="id_proveedor2" class="form-control">
+                        <button type="button" class="btn btn-primary pull-right" onclick="eliminar_proveedor()">Eliminar</button>
                       </div>
                     </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Administracion de usuarios</h4>
+                  <p class="card-category">Registrar vendedor</p>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">ID</label>
+                          <input type="text" id="id_usuario" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">nombre</label>
+                          <input type="text" id = "nombre_usuario" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">edad</label>
+                          <input type="text" id = "edad_usuario" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">password</label>
+                          <input type="text" id = "pass_usuario" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">correo</label>
+                          <input type="email" id = "email_usuario" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-primary pull-right" onclick="agregar_usuario()">Agregar</button>
+                    <div class="clearfix"></div>
                   </form>
                 </div>
               </div>

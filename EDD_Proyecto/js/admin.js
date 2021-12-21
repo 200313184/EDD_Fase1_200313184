@@ -39,3 +39,23 @@ function agregar_proveedor(){
 
     console.log(proveedores.graficar());
 }
+
+function agregar_usuario(){
+    let id_usuario = document.getElementById('id_usuario').value;
+    let nombre_usuario = document.getElementById('nombre_usuario').value;
+    let edad_usuario = document.getElementById('edad_usuario').value;
+    let pass_usuario = document.getElementById('pass_usuario').value;
+    let email_usuario = document.getElementById('email_usuario').value;
+
+    vendedores.insertar(id_usuario, nombre_usuario, edad_usuario, pass_usuario, email_usuario);
+
+    var lista_vendedores = CircularJSON.stringify(vendedores);
+    sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
+}
+
+function eliminar_proveedor(){
+    let id_proveedor = document.getElementById('id_proveedor2').value;
+    proveedores.eliminar(id_proveedor);
+    var lista_proveedores = CircularJSON.stringify(proveedores);
+    sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
+}
