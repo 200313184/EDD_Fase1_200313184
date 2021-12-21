@@ -31,14 +31,24 @@ function agregar_cliente(){
     let nombre_cliente1 = document.getElementById('nombre_cliente1').value;
     let correo_cliente1 = document.getElementById('correo_cliente1').value;
     let vend = vendedores.buscar(usuario.id);
-    vend.lista_clientes.insertar(id_cliente1, nombre_cliente1, correo_cliente1);
-    vendedores.graficarClientes(vend);
+    let clientes = new listaCliente();
+    Object.assign(clientes, vend.lista_clientes);
+    clientes.insertar(id_cliente1, nombre_cliente1, correo_cliente1);
+    vend.lista_clientes =clientes;
+    var lista_vendedores = CircularJSON.stringify(vendedores);
+    sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
 }
 
 function eliminar_cliente(){
     let nombre_cliente2 = document.getElementById('nombre_cliente2').value;
     let correo_cliente2 = document.getElementById('correo_cliente2').value;
     let vend = vendedores.buscar(usuario.id);
-    vend.lista_clientes.eliminar(nombre_cliente2, correo_cliente2);
-    vendedores.graficarClientes(vend);
+    let clientes = new listaCliente();
+    Object.assign(clientes, vend.lista_clientes);
+    clientes.eliminar(nombre_cliente2, correo_cliente2);
+    vend.lista_clientes =clientes;
+    var lista_vendedores = CircularJSON.stringify(vendedores);
+    sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
+
+
 }

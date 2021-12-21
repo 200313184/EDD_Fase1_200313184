@@ -60,7 +60,6 @@ function cargaVendedores(json){
 
 function cargaClientes(json){
     for(x of json.vendedores){
-        console.log(x.id);
         let vend = vendedores.buscar(x.id);
         let clientes = new listaCliente();
         Object.assign(clientes, vend.lista_clientes);
