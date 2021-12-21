@@ -102,4 +102,45 @@ class abb{
         }
         return cadena;
     }
+
+    eliminar(id){
+        if(this.raiz != null){
+            return this.eliminarRecursiva(this.raiz, id);
+        }else{
+            return "Arbol vacio";
+        }
+    }
+
+    encontrarPredecesor(nodo){
+        if(nodo.der == null){
+            return nodo;
+        }else{
+            return this.encontrarPredecesor(nodo.der);
+        }
+    }
+
+    eliminarRecursiva(nodo, id){
+        if(id < nodo.id){
+            nodo.izq = this.eliminarRecursiva(nodo.izq, id);
+        }else if(id > nodo.id){
+            nodo.der = this.eliminarRecursiva(nodo.der, id);
+        }else{
+            if(nodo.izq != null && nodo.der != null){
+                let maxIzq = this.encontrarPredecesor(nodo.izq);
+                nodo.id = maxIzq.id;
+                nodo.nombre = maxIzq.nombre;
+                nodo.direccion = maxIzq.direccion;
+                nodo.telefono = maxIzq.telefono;
+                nodo.correo = maxIzq.correo;
+                this.eliminarRecursiva(nodo.izq, maxIzq.id);
+                return nodo;
+            } else if(nodo.izq != null){
+                return nodo.izq;
+            } else if(nodo.der != null){
+                return nodo.der;
+            } else{
+                return null;
+            }
+        }
+    }
 }

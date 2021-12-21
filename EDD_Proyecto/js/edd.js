@@ -38,6 +38,7 @@ function validar_usuario(){
         location.href="./examples/admin.html";
     }else{
         let usuario = vendedores.buscar(nuevo_id);
+        console.log(usuario);
         if(usuario != null){
             console.log(nuevo_pass);
             if(usuario.password == nuevo_pass){
