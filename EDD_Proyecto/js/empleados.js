@@ -87,12 +87,15 @@ class listaMeses{
         if(nodo.Matriz == null){
             nodo.Matriz = new Matriz();
         }
-        let inserccion = nodo.Matriz.insertar(evento, hora, dia);
+        let mat = new Matriz();
+        Object.assign(mat, nodo.Matriz);
+        let inserccion = mat.insertar(evento, hora, dia);
         if(!inserccion){
             console.log('Error al insertar en el calendario, favor revisar datos');
         }else{
             console.log('Evento insertado con exito');
         }
+        nodo.Matriz = mat;
     }
 
     buscar(id){
@@ -188,11 +191,11 @@ class avl{
     }
 
     buscarMeses(nodo, id){
-        let pivote = nodo.lista_meses;
-        if(nodo.lista_meses == null){
-            this.insertarMeses(nodo);
-        }
-        return pivote.buscar(id);
+        let pivote = new listaMeses();
+        Object.assign(pivote, nodo.lista_meses);
+        let retorno = pivote.buscar(id);
+        nodo.lista_meses = pivote;
+        return retorno;
     }
 
     insertar_recursiva(raiz_actual,nuevo){
@@ -302,6 +305,8 @@ class avl{
 
     graficarClientes(nodo){
         let cadena="digraph clientes {\n";
+        console.log(nodo);
+        console.log(nodo.lista_clientes);
         let pivote = nodo.lista_clientes.inicio;
         while(pivote != null){
             cadena += "n" + pivote.id + "[label = \""+ pivote.id + ":" + pivote.nombre +"\"];\n";

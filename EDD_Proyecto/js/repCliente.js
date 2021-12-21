@@ -28,7 +28,7 @@ function inicializar_listas(){
 }
 
 function graficar_repcliente(){
-    let id_vend = document.getElementById('id_vendedor');
+    let id_vend = document.getElementById('id_vendedor').value;
     var vend = vendedores.buscar(id_vend);
     var sample = vendedores.graficarClientes(vend);
     document.getElementById('exampleFormControlTextarea1').value = sample;

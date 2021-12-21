@@ -87,15 +87,18 @@ function cargaProveedores(json){
 
 function cargaEventos(json){
     for(x of json.vendedores){
+        let vend = vendedores.buscar(x.id);
+        let meses = new listaMeses();
+        Object.assign(meses, vend.lista_meses);
         for(y of x.eventos){
-            let vend = vendedores.buscar(x.id);
             if(vend != null){
                 let mes = vendedores.buscarMeses(vend, y.mes);
                 if(mes != null){
-                    vend.lista_meses.insertarCalendario(mes, y.desc, y.hora, y.dia);
+                    meses.insertarCalendario(mes, y.desc, y.hora, y.dia);
                 }
             }
         }
+        vend.lista_meses = meses;
     }
     var lista_proveedores = CircularJSON.stringify(proveedores);
     sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
