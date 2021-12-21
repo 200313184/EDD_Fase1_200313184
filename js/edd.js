@@ -3,9 +3,25 @@ let proveedores = new abb();
 
 
 function inicializar_listas(){
-    vendedores = new avl();
-    vendedores.insertar(200313184,"Admin", 28, "glopez1206gmail.com", "1234");
-    proveedores = new abb();
+    var tem_vendedores = JSON.parse(sessionStorage.getItem("vendedores"));
+    if(tem_vendedores != null){
+        vendedores = new avl();
+        tem_vendedores = CircularJSON.parse(tem_vendedores);
+        Object.assign(vendedores,tem_vendedores);
+    }else{
+        vendedores = new avl();
+        vendedores.insertar(200313184,"Admin", 28, "glopez1206gmail.com", "1234");
+    }
+
+    var tem_proveedores = JSON.parse(sessionStorage.getItem("proveedores"));
+    if(tem_proveedores != null){
+        proveedores = new abb();
+        tem_proveedores = CircularJSON.parse(tem_proveedores);
+        Object.assign(proveedores,tem_proveedores);
+    }else{
+        proveedores = new abb();
+    }
+    
 }
  
 function validar_usuario(){
