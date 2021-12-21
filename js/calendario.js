@@ -36,7 +36,12 @@ function agregar_actividad(){
     if(vend != null){
         let mes = vendedores.buscarMeses(vend, mes_calendario);
         if(mes != null){
-            vend.lista_meses.insertarCalendario(mes, desc_calendario, hora_calendario, dia_calendario);
+            let meses = new listaMeses();
+            Object.assign(meses, vend.lista_meses);
+            meses.insertarCalendario(mes, desc_calendario, hora_calendario, dia_calendario);
+            vend.lista_meses = meses;
         }
     }
+    var lista_vendedores = CircularJSON.stringify(vendedores);
+    sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
 }
