@@ -37,6 +37,7 @@ function agregar_cliente(){
     vend.lista_clientes =clientes;
     var lista_vendedores = CircularJSON.stringify(vendedores);
     sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
+    alert("Se agrego al cliente exitosamente");
 }
 
 function eliminar_cliente(){
@@ -49,6 +50,6 @@ function eliminar_cliente(){
     vend.lista_clientes =clientes;
     var lista_vendedores = CircularJSON.stringify(vendedores);
     sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
-
+    alert("Se elimino al cliente exitosamente");
 
 }
