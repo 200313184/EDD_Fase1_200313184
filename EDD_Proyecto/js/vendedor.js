@@ -10,7 +10,7 @@ function inicializar_listas(){
     Object.assign(vendedores,tem_vendedores);
 
     var tem_proveedores = JSON.parse(sessionStorage.getItem("proveedores"));
-    proveedores = new avl();
+    proveedores = new abb();
     tem_proveedores = CircularJSON.parse(tem_proveedores);
     Object.assign(proveedores,tem_proveedores);
 

@@ -10,7 +10,7 @@ function inicializar_listas(){
     Object.assign(vendedores,tem_vendedores);
 
     var tem_proveedores = JSON.parse(sessionStorage.getItem("proveedores"));
-    proveedores = new avl();
+    proveedores = new abb();
     tem_proveedores = CircularJSON.parse(tem_proveedores);
     Object.assign(proveedores,tem_proveedores);
 
@@ -18,8 +18,6 @@ function inicializar_listas(){
     usuario = new nodoAvl();
     tem_usuarios = CircularJSON.parse(tem_usuarios);
     Object.assign(usuario,tem_usuarios);
-
-    console.log(usuario);
 
     if(usuario.id == undefined){
         location.href="../login.html";
@@ -56,18 +54,22 @@ function cargaVendedores(json){
         vendedores.insertar(x.id, x.nombre, x.edad, x.correo, x.password);
     }
     var lista_vendedores = CircularJSON.stringify(vendedores);
+    console.log(vendedores.graficar());
     sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
 }
 
 function cargaClientes(json){
     for(x of json.vendedores){
+        console.log(x.id);
+        let vend = vendedores.buscar(x.id);
+        let clientes = new listaCliente();
+        Object.assign(clientes, vend.lista_clientes);
         for(y of x.clientes){
-            console.log(x.id);
-            let vend = vendedores.buscar(x.id);
             if(vend != null){
-                vendedores.insertarCliente(vend, y.id, y.nombre, t.correo);
+                clientes.insertar(y.id, y.nombre, y.correo);
             }
         }
+        vend.lista_clientes = clientes;
     }
     var lista_vendedores = CircularJSON.stringify(vendedores);
     sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
@@ -78,7 +80,9 @@ function cargaProveedores(json){
         proveedores.insertar(x.id, x.nombre, x.direccion, x.telefono, x.correo);
     }
     var lista_proveedores = CircularJSON.stringify(proveedores);
+    console.log(proveedores.graficar());
     sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
+    alert("Proveedores cargados con exito");
 }
 
 function cargaEventos(json){

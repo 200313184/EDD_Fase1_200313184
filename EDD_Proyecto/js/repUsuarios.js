@@ -24,19 +24,19 @@ function inicializar_listas(){
     if(usuario.id == undefined){
         location.href="../login.html";
     }
-}
 
-function agregar_actividad(){
-    let mes_calendario = document.getElementById('mes_calendario').value;
-    let dia_calendario = document.getElementById('dia_calendario').value;
-    let hora_calendario = document.getElementById('hora_calendario').value;
-    let desc_calendario = document.getElementById('desc_calendario').value;
+    var sample = vendedores.graficar();
+    document.getElementById('exampleFormControlTextarea1').value = sample;
 
-    let vend = vendedores.buscar(usuario.id);
-    if(vend != null){
-        let mes = vendedores.buscarMeses(vend, mes_calendario);
-        if(mes != null){
-            vend.lista_meses.insertarCalendario(mes, desc_calendario, hora_calendario, dia_calendario);
-        }
+    var options = {
+    format: 'svg'
+    // format: 'png-image-element'
     }
+
+    var image = Viz(sample, options);
+    var main = document.getElementById('main');
+
+    main.innerHTML = image;		// SVG
+    main.appendChild(image);	// PNG
+
 }

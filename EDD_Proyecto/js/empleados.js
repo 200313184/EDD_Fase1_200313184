@@ -164,6 +164,7 @@ class avl{
     }
 
     insertarCliente(nodo, id, nombre, correo){
+        console.log(nodo.lista_clientes);
         if(nodo.lista_clientes == null){
             nodo.lista_clientes = new listaCliente();
         }
@@ -271,8 +272,6 @@ class avl{
         cadena+="\n";
         cadena+=this.recorrido(this.raiz);
         cadena+="\n}";
-
-        console.log(cadena);
         return cadena;
     }
 
@@ -305,7 +304,7 @@ class avl{
         let cadena="digraph clientes {\n";
         let pivote = nodo.lista_clientes.inicio;
         while(pivote != null){
-            cadena += "n" + pivote.id + "[label = \""+ pivote.id + ":" + pivote.nombre +"];\n";
+            cadena += "n" + pivote.id + "[label = \""+ pivote.id + ":" + pivote.nombre +"\"];\n";
             pivote = pivote.sig; 
         }
         pivote = nodo.lista_clientes.inicio;
@@ -318,6 +317,6 @@ class avl{
             pivote = pivote.sig; 
         }
         cadena+="}\n";
-        console.log(cadena);
+        return cadena;
     }
 }
