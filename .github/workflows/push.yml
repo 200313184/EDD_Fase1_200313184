@@ -14,4 +14,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: ./EDD_Fase1_200313184
+          folder: ./EDD_Proyecto
