@@ -56,3 +56,33 @@ function graficar_repcalendario(){
     main.innerHTML = image;		// SVG
     main.appendChild(image);	// PNG
 }
+
+function graficar_calendUsuario(){
+    let id_vend = usuario.id;
+    let id_mes = document.getElementById('mes_calendario').value;
+    let vend = vendedores.buscar(id_vend);
+    console.log(vend);
+    let meses = new listaMeses();
+    Object.assign(meses, vend.lista_meses);
+
+    let mes = meses.buscar(id_mes);
+    console.log(mes);
+
+    let mat = new Matriz();
+    Object.assign(mat, mes.Matriz);
+
+    let sample = mat.graficar();
+
+    document.getElementById('exampleFormControlTextarea1').value = sample;
+
+    var options = {
+    format: 'svg'
+    // format: 'png-image-element'
+    }
+
+    var image = Viz(sample, options);
+    var main = document.getElementById('main');
+
+    main.innerHTML = image;		// SVG
+    main.appendChild(image);	// PNG
+}
