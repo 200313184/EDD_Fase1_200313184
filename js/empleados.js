@@ -161,8 +161,10 @@ class avl{
             }else{
                 return null;
             }
-        }else{
+        }else if(id == nodo.id){
             return nodo;
+        }else{
+            return null;
         }
     }
 
