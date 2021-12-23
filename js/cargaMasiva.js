@@ -19,7 +19,7 @@ function inicializar_listas(){
     tem_usuarios = CircularJSON.parse(tem_usuarios);
     Object.assign(usuario,tem_usuarios);
 
-    if(usuario.id == undefined || usuario.id == NaN){
+    if(usuario.id == undefined){
         location.href="../login.html";
     }
 }
@@ -56,7 +56,6 @@ function cargaVendedores(json){
     var lista_vendedores = CircularJSON.stringify(vendedores);
     console.log(vendedores.graficar());
     sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
-    alert("Vendedores cargados con exito");
 }
 
 function cargaClientes(json){
@@ -73,7 +72,6 @@ function cargaClientes(json){
     }
     var lista_vendedores = CircularJSON.stringify(vendedores);
     sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
-    alert("Clientes cargados con exito");
 }
 
 function cargaProveedores(json){
@@ -103,5 +101,4 @@ function cargaEventos(json){
     }
     var lista_vendedores = CircularJSON.stringify(vendedores);
     sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
-    alert("Eventos cargados con exito");
 }

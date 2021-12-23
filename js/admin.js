@@ -20,7 +20,7 @@ function inicializar_listas(){
 
     console.log(usuario);
 
-    if(usuario.id == undefined || usuario.id == NaN){
+    if(usuario.id == undefined){
         location.href="../login.html";
     }
 }

@@ -27,35 +27,27 @@ class Matriz{
     insertarFila(nuevo){
         if(this.inicio.filas == null){
             this.inicio.filas = nuevo;
-            nuevo.arriba = this.inicio;
             return nuevo;
         }else{
             let pivote = this.inicio.filas;
-            if(pivote.hora == nuevo.hora){
-                return pivote;
-            }
-            if(nuevo.hora < pivote.hora){
-                nuevo.abajo = pivote;
-                pivote.arriba = nuevo;
-                this.inicio.filas = nuevo;
-                nuevo.arriba = this.inicio;
-                return nuevo;
-            }else{
-                while(pivote.abajo != null){
-                    if(nuevo.hora == pivote.abajo.hora){
-                        return pivote.abajo;
-                    }else if(nuevo.hora < pivote.abajo.hora){
-                        nuevo.abajo = pivote.abajo;
-                        nuevo.arriba = pivote;
-                        pivote.abajo.arriba = nuevo;
+            if(pivote.abajo != null){
+                while(pivote.abajo.hora < nuevo.hora){
+                    pivote = pivote.abajo;
+                    if(pivote.abajo == null){
                         pivote.abajo = nuevo;
+                        nuevo.arriba = pivote;
                         return nuevo;
                     }
-                    pivote = pivote.abajo;
                 }
-                if(pivote.hora == nuevo.hora){
-                    return pivote;
+                if(pivote.abajo.hora == nuevo.hora){
+                    return pivote.abajo;
                 }
+                nuevo.abajo = pivote.abajo;
+                pivote.abajo.arriba = nuevo;
+                nuevo.arriba = pivote;
+                pivote.abajo = nuevo;
+                return nuevo;
+            }else{
                 pivote.abajo = nuevo;
                 nuevo.arriba = pivote;
                 return nuevo;
@@ -66,35 +58,27 @@ class Matriz{
     insertarColumna(nuevo){
         if(this.inicio.columnas == null){
             this.inicio.columnas = nuevo;
-            nuevo.izq = this.inicio;
             return nuevo;
         }else{
             let pivote = this.inicio.columnas;
-            if(pivote.dia == nuevo.dia){
-                return pivote;
-            }
-            if(nuevo.dia < pivote.dia){
-                nuevo.der = pivote;
-                pivote.izq = nuevo;
-                this.inicio.columnas = nuevo;
-                nuevo.izq = this.inicio;
-                return nuevo;
-            }else{
-                while(pivote.der != null){
-                    if(nuevo.dia == pivote.der.dia){
-                        return pivote.der;
-                    }else if(nuevo.dia < pivote.der.dia){
-                        nuevo.der = pivote.der;
-                        nuevo.izq = pivote;
-                        pivote.der.izq = nuevo;
+            if(pivote.der != null){
+                while(pivote.der.dia < nuevo.dia){
+                    pivote = pivote.der;
+                    if(pivote.der == null){
                         pivote.der = nuevo;
+                        nuevo.izq = pivote;
                         return nuevo;
                     }
-                    pivote = pivote.der;
                 }
-                if(pivote.dia == nuevo.dia){
-                    return pivote;
+                if(pivote.der.dia == nuevo.dia){
+                    return pivote.der;
                 }
+                nuevo.der = pivote.der;
+                pivote.der.izq = nuevo;
+                nuevo.izq = pivote;
+                pivote.der = nuevo;
+                return nuevo;
+            }else{
                 pivote.der = nuevo;
                 nuevo.izq = pivote;
                 return nuevo;
@@ -106,29 +90,31 @@ class Matriz{
         if(fila.der == null){
             fila.der = nuevo;
             nuevo.izq = fila;
-            return nuevo;
+            return true;
         }else{
             let pivote = fila.der;
-            if(nuevo.dia < pivote.dia){
-                nuevo.der = pivote;
-                pivote.izq = nuevo;
-                fila.der = nuevo;
-                nuevo.izq = fila;
-                return nuevo;
-            }else{
-                while(pivote.der != null){
-                    if(nuevo.dia < pivote.der.dia){
-                        nuevo.der = pivote.der;
-                        nuevo.izq = pivote;
-                        pivote.der.izq = nuevo;
-                        pivote.der = nuevo;
-                        return nuevo;
-                    }
+            if(pivote.der != null){
+                while(pivote.der.dia < nuevo.dia){
                     pivote = pivote.der;
+                    if(pivote.der == null){
+                        pivote.der = nuevo;
+                        nuevo.izq = pivote;
+                        return true;
+                    }
                 }
+                if(pivote.der.dia == nuevo.dia){
+                    console.log("Evento existente para dicha hora y dia");
+                    return false;
+                }
+                nuevo.der = pivote.der;
+                pivote.der.izq = nuevo;
+                nuevo.izq = pivote;
+                pivote.der = nuevo;
+                return true;
+            }else{
                 pivote.der = nuevo;
                 nuevo.izq = pivote;
-                return nuevo;
+                return true;
             }
         }
     }
@@ -137,29 +123,31 @@ class Matriz{
         if(columna.abajo == null){
             columna.abajo = nuevo;
             nuevo.arriba = columna;
-            return nuevo;
+            return true;
         }else{
-            let pivote = columna.abajo;
-            if(nuevo.hora < pivote.hora){
-                nuevo.abajo = pivote;
-                pivote.arriba = nuevo;
-                columna.abajo = nuevo;
-                nuevo.arriba = columna;
-                return nuevo;
-            }else{
-                while(pivote.abajo != null){
-                    if(nuevo.hora < pivote.abajo.hora){
-                        nuevo.abajo = pivote.abajo;
-                        nuevo.arriba = pivote;
-                        pivote.abajo.arriba = nuevo;
-                        pivote.abajo = nuevo;
-                        return nuevo;
-                    }
+            let pivote = columna.filas;
+            if(pivote.abajo != null){
+                while(pivote.abajo.hora < nuevo.hora){
                     pivote = pivote.abajo;
+                    if(pivote.abajo == null){
+                        pivote.abajo = nuevo;
+                        nuevo.arriba = pivote;
+                        return true;
+                    }
                 }
+                if(pivote.abajo.hora == nuevo.hora){
+                    console.log("Evento existente para dicha hora y dia");
+                    return false;
+                }
+                nuevo.abajo = pivote.abajo;
+                pivote.abajo.arriba = nuevo;
+                nuevo.arriba = pivote;
+                pivote.abajo = nuevo;
+                return true;
+            }else{
                 pivote.abajo = nuevo;
                 nuevo.arriba = pivote;
-                return nuevo;
+                return true;
             }
         }
     }
@@ -306,9 +294,10 @@ class Matriz{
             let piv = pivote.der;
             cadena+="y" + pivote.hora +"->n" + piv.identificador + "[constraint=false];\n";
             cadena+="n" + piv.identificador + "->y" + pivote.hora + "[constraint=false];\n";
+            piv =  pivote.der;
             while(piv.der != null){
-                cadena+="n" + piv.identificador +"->n" + piv.der.identificador + "[constraint=false];\n";
-                cadena+="n" + piv.der.identificador + "->n" + piv.identificador + "[constraint=false];\n";
+                cadena+="n" + pivote.identificador +"->n" + piv.der.identificador + "[constraint=false];\n";
+                cadena+="n" + piv.der.identificador + "->n" + pivote.hora + "[constraint=false];\n";
                 piv = piv.der;
             }
             cadena+="\n";
