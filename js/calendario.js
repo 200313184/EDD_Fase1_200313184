@@ -44,4 +44,5 @@ function agregar_actividad(){
     }
     var lista_vendedores = CircularJSON.stringify(vendedores);
     sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
+    alert("Se agrego la actividad exitosamente")
 }

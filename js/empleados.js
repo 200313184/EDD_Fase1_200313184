@@ -42,7 +42,6 @@ class listaCliente{
                         if(pivote.sig != null){
                             pivote.sig.ant = pivote;
                         }
-                        console.log("Cliente eliminado con exito");
                         break;
                     }
                     pivote = pivote.sig;
@@ -320,8 +319,19 @@ class avl{
                 cadena += "n" + pivote.id +"->";
             }else{
                 cadena += "n" + pivote.id +";\n";
+                break;
             }
             pivote = pivote.sig; 
+        }
+
+        while(pivote != nodo.lista_clientes.inicio){
+            if(pivote.ant != null && pivote.ant != nodo.lista_clientes.inicio){
+                cadena += "n" + pivote.id +"->";
+            }else{
+                cadena += "n" + pivote.id +"->n" + pivote.ant.id +";\n";
+                break;
+            }
+            pivote = pivote.ant; 
         }
         cadena+="}\n";
         return cadena;
