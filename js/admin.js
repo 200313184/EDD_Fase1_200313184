@@ -37,7 +37,7 @@ function agregar_proveedor(){
     var lista_proveedores = CircularJSON.stringify(proveedores);
     sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
 
-    console.log(proveedores.graficar());
+    alert("Proveedor agregado con exito");
 }
 
 function agregar_usuario(){
@@ -51,11 +51,18 @@ function agregar_usuario(){
 
     var lista_vendedores = CircularJSON.stringify(vendedores);
     sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
+    alert("Usuario agregado con exito");
 }
 
 function eliminar_proveedor(){
     let id_proveedor = document.getElementById('id_proveedor2').value;
-    proveedores.eliminar(id_proveedor);
+    let eliminado = proveedores.eliminar(id_proveedor);
     var lista_proveedores = CircularJSON.stringify(proveedores);
     sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
+
+    if(eliminado != null){
+        alert("Proveedor eliminado con exito");
+    }else{
+        alert("Error al eliminar el proveedor");
+    }
 }

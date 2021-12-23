@@ -75,6 +75,7 @@ class abb{
         cadena+="\n";
         cadena+=this.recorrido(this.raiz);
         cadena+="\n}";
+        console.log(this.raiz);
         return cadena;
     }
 
@@ -111,7 +112,7 @@ class abb{
             }
             return this.eliminarRecursiva(this.raiz, id);
         }else{
-            return "Arbol vacio";
+            return null;
         }
     }
 
@@ -124,6 +125,9 @@ class abb{
     }
 
     eliminarRecursiva(nodo, id){
+        if(nodo == null){
+            return null;
+        }
         if(id < nodo.id){
             nodo.izq = this.eliminarRecursiva(nodo.izq, id);
         }else if(id > nodo.id){
@@ -131,6 +135,9 @@ class abb{
         }else{
             if(nodo.izq != null && nodo.der != null){
                 let maxIzq = this.encontrarPredecesor(nodo.izq);
+                if(nodo.izq.id == maxIzq.id){
+                    nodo.izq = maxIzq.izq;
+                }
                 nodo.id = maxIzq.id;
                 nodo.nombre = maxIzq.nombre;
                 nodo.direccion = maxIzq.direccion;
@@ -146,5 +153,6 @@ class abb{
                 return null;
             }
         }
+        return nodo;
     }
 }
