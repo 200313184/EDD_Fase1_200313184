@@ -130,51 +130,6 @@ class avl{
         this.raiz = null;
     }
 
-    eliminar(id){
-        if(this.raiz != null){
-            return this.eliminarRecursiva(this.raiz, id);
-        }else{
-            return "Arbol vacio";
-        }
-    }
-
-    encontrarSucesor(nodo){
-        if(nodo.izq == null){
-            return nodo;
-        }else{
-            return this.encontrarPredecesor(nodo.izq);
-        }
-    }
-
-    eliminarRecursiva(nodo, id){
-        if(nodo == null){
-            return null;
-        }
-        let retNodo;
-        if(id < nodo.id){
-            nodo.izq = this.eliminarRecursiva(nodo.izq, id);
-            retNodo = nodo;
-        }else if(id > nodo.id){
-            nodo.der = this.eliminarRecursiva(nodo.der, id);
-            retNodo = nodo;
-        }else{
-            if(nodo.izq == null){
-                let derecho = nodo.der;
-                nodo.der = null;
-                retNodo = derecho;
-            } 
-            
-            if(nodo.der == null){
-                let izquierdo = nodo.izq;
-                nodo.izq = null;
-                retNodo = izquierdo;
-            } 
-
-
-        }
-        return nodo;
-    }
-
     insertar(id, nombre, edad, correo, password){
         let nuevo = new nodoAvl(parseInt(id, 10), nombre, edad, correo, password);
         this.insertarMeses(nuevo);

@@ -105,6 +105,10 @@ class abb{
 
     eliminar(id){
         if(this.raiz != null){
+            if(this.raiz.id == id){
+                this.raiz = this.eliminarRecursiva(this.raiz, id);
+                return this.raiz;
+            }
             return this.eliminarRecursiva(this.raiz, id);
         }else{
             return "Arbol vacio";
