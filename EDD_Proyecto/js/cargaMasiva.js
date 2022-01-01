@@ -1,6 +1,8 @@
 let vendedores = new avl();
 let proveedores = new abb();
 let usuario = new nodoAvl();
+let inventario = new arbolB();
+let rutas = new Grafo();
 
 function inicializar_listas(){
     console.log("Entro a inicializar listas ");
@@ -13,6 +15,16 @@ function inicializar_listas(){
     proveedores = new abb();
     tem_proveedores = CircularJSON.parse(tem_proveedores);
     Object.assign(proveedores,tem_proveedores);
+
+    var tem_inventario = JSON.parse(sessionStorage.getItem("inventario"));
+    inventario = new arbolB();
+    tem_inventario = CircularJSON.parse(tem_inventario);
+    Object.assign(inventario,tem_inventario);
+
+    var tem_rutas = JSON.parse(sessionStorage.getItem("rutas"));
+    rutas = new Grafo();
+    tem_rutas = CircularJSON.parse(tem_rutas);
+    Object.assign(rutas,tem_rutas);
 
     var tem_usuarios = JSON.parse(sessionStorage.getItem("usuario"));
     usuario = new nodoAvl();
@@ -46,7 +58,19 @@ function realizarCarga(texto,tipo){
         cargaProveedores(json);
     }else if(tipo==4){
         cargaEventos(json);
+    }else if(tipo==5){
+        cargaInventario(json);
     }
+}
+
+function cargaInventario(json){
+    for(x of json.productos){
+        vendedores.insertar(x.id, x.nombre, x.edad, x.correo, x.password);
+    }
+    var lista_vendedores = CircularJSON.stringify(vendedores);
+    console.log(vendedores.graficar());
+    sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
+    alert("Vendedores cargados con exito");
 }
 
 function cargaVendedores(json){

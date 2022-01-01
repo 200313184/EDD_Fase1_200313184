@@ -1,6 +1,8 @@
 let vendedores = new avl();
 let proveedores = new abb();
 let usuario = new nodoAvl();
+let inventario = new arbolB();
+let rutas = new Grafo();
 
 function inicializar_listas(){
     console.log("Entro a inicializar listas ");
@@ -14,17 +16,24 @@ function inicializar_listas(){
     tem_proveedores = CircularJSON.parse(tem_proveedores);
     Object.assign(proveedores,tem_proveedores);
 
+    var tem_inventario = JSON.parse(sessionStorage.getItem("inventario"));
+    inventario = new arbolB();
+    tem_inventario = CircularJSON.parse(tem_inventario);
+    Object.assign(inventario,tem_inventario);
+
+    var tem_rutas = JSON.parse(sessionStorage.getItem("rutas"));
+    rutas = new Grafo();
+    tem_rutas = CircularJSON.parse(tem_rutas);
+    Object.assign(rutas,tem_rutas);
+
     var tem_usuarios = JSON.parse(sessionStorage.getItem("usuario"));
     usuario = new nodoAvl();
     tem_usuarios = CircularJSON.parse(tem_usuarios);
     Object.assign(usuario,tem_usuarios);
 
-    console.log(usuario);
-
     if(usuario.id == undefined || usuario.id == NaN){
         location.href="../login.html";
     }
-
 }
 
 function graficar_repcliente(){

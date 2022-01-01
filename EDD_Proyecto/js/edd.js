@@ -1,6 +1,7 @@
 let vendedores = new avl();
 let proveedores = new abb();
-
+let inventario = new arbolB();
+let rutas = new Grafo();
 
 function inicializar_listas(){
     var tem_vendedores = JSON.parse(sessionStorage.getItem("vendedores"));
@@ -22,9 +23,24 @@ function inicializar_listas(){
         proveedores = new abb();
     }
 
-    let grafo = new Grafo();
-    grafo.prueba();
-    
+    var tem_inventario = JSON.parse(sessionStorage.getItem("inventario"));
+    if(tem_inventario != null){
+        inventario = new arbolB();
+        tem_inventario = CircularJSON.parse(tem_inventario);
+        Object.assign(inventario,tem_inventario);
+    }else{
+        inventario = new arbolB();
+    }
+
+    var tem_rutas = JSON.parse(sessionStorage.getItem("rutas"));
+    if(tem_rutas != null){
+        rutas = new Grafo();
+        tem_rutas = CircularJSON.parse(tem_rutas);
+        Object.assign(rutas,tem_rutas);
+    }else{
+        rutas = new Grafo();
+    }
+
 }
  
 function validar_usuario(){
