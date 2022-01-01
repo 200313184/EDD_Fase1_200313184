@@ -21,6 +21,9 @@ function inicializar_listas(){
     }else{
         proveedores = new abb();
     }
+
+    let grafo = new Grafo();
+    grafo.prueba();
     
 }
  
