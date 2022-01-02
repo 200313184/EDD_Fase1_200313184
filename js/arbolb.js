@@ -22,6 +22,7 @@ class paginaB{
         if(this.inicio == null){
             this.inicio = nuevo;
             this.tam++;
+            console.log("Inicio " + this.tam);
             return nuevo;
         }else{
             let pivote = this.inicio;
@@ -32,16 +33,16 @@ class paginaB{
                 nuevo.sig = pivote;
                 pivote.ant = nuevo;
                 this.inicio = nuevo;
-                nuevo.paginaDer = pivote.paginaIzq;
+                pivote.paginaIzq = nuevo.paginaDer;
                 this.tam++;
                 return nuevo;
             }else{
-                while(pivote.der != null){
+                while(pivote.sig != null){
                     if(nuevo.id == pivote.sig.id){
                         return pivote.sig;
                     }else if(nuevo.id < pivote.sig.id){
-                        nuevo.paginaIzq = pivote.paginaDer;
-                        nuevo.paginaDer = pivote.sig.paginaIzq;
+                        pivote.paginaDer = nuevo.paginaIzq
+                        pivote.sig.paginaIzq = nuevo.paginaDer;
                         nuevo.sig = pivote.sig;
                         nuevo.ant = pivote;
                         pivote.sig.ant = nuevo;
@@ -54,10 +55,11 @@ class paginaB{
                 if(pivote.id == nuevo.id){
                     return pivote;
                 }
-                nuevo.paginaIzq = pivote.paginaDer;
+                pivote.paginaDer = nuevo.paginaIzq
                 pivote.sig = nuevo;
                 nuevo.ant = pivote;
                 this.tam++;
+                console.log("Fin " + this.tam);
                 return nuevo;
             }
         }
@@ -76,7 +78,15 @@ class arbolB{
             this.inicio.insertarNodo(nuevo);
             return true;
         }else{
-            return insertarRecursivo(this.inicio, nuevo);
+            let ret = this.insertarRecursivo(this.inicio, nuevo);
+            if(ret != null){
+                if(this.inicio.tam == 5){
+                    console.log("nueva raiz");
+                    this.inicio = new paginaB();
+                }
+                this.inicio.insertarNodo(ret);
+            }
+            return true;
         }
     }
 
@@ -109,17 +119,33 @@ class arbolB{
         if(pagina.tam == 5){
             // se retorna el padre que subira
             let cabeza = pagina.inicio.sig.sig; // indice 3
-            let cabIns = new nodoProducto(cabeza.id, cabeza, precio, cabeza.cantidad);
+            let cabIns = new nodoProducto(cabeza.id, cabeza.nombre, cabeza.precio, cabeza.cantidad);
             cabIns.paginaIzq = new paginaB();
             cabIns.paginaDer = new paginaB();
+            console.log("Insertando izq");
 
-            cabIns.paginaIzq.insertarNodo(pagina.inicio);
-            pagina.inicio.sig.sig = null;
-            cabIns.paginaIzq.insertarNodo(pagina.inicio.sig);
+            let nodoPrimero = pagina.inicio;
+            let nodoSegundo = pagina.inicio.sig;
 
-            cabIns.paginaDer.insertarNodo(cabeza.der);
-            cabeza.der.izq = null;
-            cabIns.paginaDer.insertarNodo(cabeza.der.der);
+            nodoPrimero.sig = null;
+            nodoPrimero.ant = null;
+            nodoSegundo.sig = null;
+            nodoSegundo.ant = null;
+
+            let nodoTercero = cabeza.sig;
+            let nodoCuarto = cabeza.sig.sig;
+
+            nodoTercero.sig = null;
+            nodoTercero.ant = null;
+            nodoCuarto.sig = null;
+            nodoCuarto.ant = null;
+
+            cabIns.paginaIzq.insertarNodo(nodoPrimero);
+            cabIns.paginaIzq.insertarNodo(nodoSegundo);
+            console.log("Insertando der");
+            cabIns.paginaDer.insertarNodo(nodoTercero);
+            cabIns.paginaDer.insertarNodo(nodoCuarto);
+            
             return cabIns;
         }else{
             return null;
@@ -143,19 +169,19 @@ class arbolB{
             let nodoIni = pagina_actual.inicio;
             pag = "p" + nodoIni.id + "[label=\"<f0>";
             let contador = 1;
-            while(nodoIni == null){
+            while(nodoIni != null){
                 pag += "|<f" + contador + ">" +  nodoIni.id + "|";
                 contador++;
                 pag += "<f" + contador + ">";
                 contador++;
                 nodoIni = nodoIni.sig;
             }
-            pag += "\"]\n";
+            pag += "\"];\n";
             nodoIni = pagina_actual.inicio;
-            while(nodoIni == null){
-                nodos+=this.graficar_nodos(nodoIni.paginaIzq);
+            while(nodoIni != null){
+                pag+=this.graficar_nodos(nodoIni.paginaIzq);
                 if(nodoIni.sig == null){
-                    nodos+=this.graficar_nodos(nodoIni.paginaDer);
+                    pag+=this.graficar_nodos(nodoIni.paginaDer);
                 }    
                 nodoIni = nodoIni.sig;
             }
@@ -173,7 +199,9 @@ class arbolB{
         }
         if(pivote.sig == null){
             let pagDer = pivote.paginaDer;
-            cadena += "p" + identificador + ":f2->p" + pagDer.inicio.id + ":f" + pagDer.tam + ";\n";
+            if(pagDer != null){
+                cadena += "p" + identificador + ":f2->p" + pagDer.inicio.id + ":f" + pagDer.tam + ";\n";
+            }
         }else{
             let suma = 0;
             let contador = 2;
@@ -186,7 +214,9 @@ class arbolB{
                 }
                 if(pivote.sig.sig == null){
                     let pagDer = pivote.sig.paginaDer;
-                    cadena += "p" + identificador + ":f"+ sum2+"->p" + pagDer.inicio.id + ":f" + pagDer.tam + ";\n";
+                    if(pagDer != null){
+                        cadena += "p" + identificador + ":f"+ sum2+"->p" + pagDer.inicio.id + ":f" + pagDer.tam + ";\n";
+                    }
                 }
                 suma++;
                 contador++;

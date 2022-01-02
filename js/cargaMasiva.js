@@ -65,12 +65,13 @@ function realizarCarga(texto,tipo){
 
 function cargaInventario(json){
     for(x of json.productos){
-        vendedores.insertar(x.id, x.nombre, x.edad, x.correo, x.password);
+        inventario.insertar(x.id, x.nombre, x.precio, x.cantidad);
+        console.log(inventario.graficar());
     }
-    var lista_vendedores = CircularJSON.stringify(vendedores);
-    console.log(vendedores.graficar());
-    sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
-    alert("Vendedores cargados con exito");
+    var lista_inventario = CircularJSON.stringify(inventario);
+    console.log(inventario.graficar());
+    sessionStorage.setItem("inventario",JSON.stringify(lista_inventario));
+    alert("Inventario cargado con exito");
 }
 
 function cargaVendedores(json){
