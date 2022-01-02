@@ -110,6 +110,9 @@ class Grafo{
             return nuevo;
         }else{
             let pivote = fila.der;
+            if(pivote.valorColumna == nuevo.valorColumna){
+                return pivote;
+            }
             if(nuevo.valorColumna < pivote.valorColumna){
                 nuevo.der = pivote;
                 pivote.izq = nuevo;
@@ -118,7 +121,9 @@ class Grafo{
                 return nuevo;
             }else{
                 while(pivote.der != null){
-                    if(nuevo.valorColumna < pivote.der.valorColumna){
+                    if(nuevo.valorColumna == pivote.der.valorColumna){
+                        return pivote.der;
+                    }else if(nuevo.valorColumna < pivote.der.valorColumna){
                         nuevo.der = pivote.der;
                         nuevo.izq = pivote;
                         pivote.der.izq = nuevo;
@@ -126,6 +131,9 @@ class Grafo{
                         return nuevo;
                     }
                     pivote = pivote.der;
+                }
+                if(pivote.valorColumna == nuevo.valorColumna){
+                    return pivote;
                 }
                 pivote.der = nuevo;
                 nuevo.izq = pivote;
@@ -141,6 +149,9 @@ class Grafo{
             return nuevo;
         }else{
             let pivote = columna.abajo;
+            if(pivote.valorFila == nuevo.valorFila){
+                return pivote;
+            }
             if(nuevo.valorFila < pivote.valorFila){
                 nuevo.abajo = pivote;
                 pivote.arriba = nuevo;
@@ -149,7 +160,9 @@ class Grafo{
                 return nuevo;
             }else{
                 while(pivote.abajo != null){
-                    if(nuevo.valorFila < pivote.abajo.valorFila){
+                    if(nuevo.valorFila == pivote.der.valorFila){
+                        return pivote.der;
+                    }else if(nuevo.valorFila < pivote.abajo.valorFila){
                         nuevo.abajo = pivote.abajo;
                         nuevo.arriba = pivote;
                         pivote.abajo.arriba = nuevo;
@@ -157,6 +170,9 @@ class Grafo{
                         return nuevo;
                     }
                     pivote = pivote.abajo;
+                }
+                if(pivote.valorFila == nuevo.valorFila){
+                    return pivote;
                 }
                 pivote.abajo = nuevo;
                 nuevo.arriba = pivote;
@@ -171,11 +187,9 @@ class Grafo{
         let nuevaColumna = new nodoGrafo(nombre, 0, valorColumna, 0);
         let nodovalorFila = this.insertarFila(nuevaFila);
         let nodovalorColumna = this.insertarColumna(nuevaColumna);
-        if(this.enlazarFila(nodovalorFila, nuevo)){
-            return this.enlazarColumna(nodovalorColumna, nuevo);
-        }else{
-            return false;
-        }
+        this.enlazarFila(nodovalorFila, nuevo);
+        this.enlazarColumna(nodovalorColumna, nuevo);
+
     }
 
     graficar(){
@@ -269,6 +283,8 @@ class Grafo{
         let pivote = this.inicio.columnas;
         while(pivote != null){
             cadena+="x" + pivote.valorColumna;
+            console.log("Recorrido " + pivote.valorColumna);
+            console.log(pivote);
             let piv = pivote.abajo;
             while(piv != null){
                 if(piv.abajo != null){
@@ -352,5 +368,33 @@ class Grafo{
         ];
         
         console.log(this.Dijkstra(matrix, 1));
+    }
+
+    obtenerMaximo(){
+        let pivoteX = this.inicio.filas;
+        while(pivoteX.abajo != null){
+            pivoteX = pivoteX.abajo;
+        }
+        return pivoteX.valorFila;
+    }
+
+    obtenerMatriz(){
+        let mat = [];
+        let arreglo = [];
+        let pivoteX = this.inicio.filas;
+        while(pivoteX != null){
+            let pivoteY = pivoteX.der;
+            let tam = this.obtenerMaximo();
+            console.log(tam);
+            arreglo = new Array(this.obtenerMaximo()).fill(Infinity);
+            arreglo[pivoteX.valorFila - 1] = 0;
+            while(pivoteY != null){
+                arreglo[pivoteY.valorColumna - 1] = pivoteY.distancia;
+                pivoteY = pivoteY.der;
+            }
+            mat.push(arreglo);
+            pivoteX = pivoteX.abajo;
+        }
+        return mat;
     }
 }
