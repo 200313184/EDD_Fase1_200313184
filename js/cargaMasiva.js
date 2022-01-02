@@ -60,7 +60,31 @@ function realizarCarga(texto,tipo){
         cargaEventos(json);
     }else if(tipo==5){
         cargaInventario(json);
+    }else if(tipo==6){
+        cargaRutas(json);
     }
+}
+
+function cargaRutas(json){
+    for(x of json.rutas){
+        let nuevaFila = new nodoGrafo(x.nombre, x.id, 0, 0);
+        let nuevaColumna = new nodoGrafo(x.nombre, 0, x.id, 0);
+        rutas.insertarFila(nuevaFila);
+        rutas.insertarColumna(nuevaColumna);
+        for(y of x.adyacentes){
+            let nuevaFila2 = new nodoGrafo(y.nombre, y.id, 0, 0);
+            let nuevaColumna2 = new nodoGrafo(y.nombre, 0, y.id, 0);
+            rutas.insertarFila(nuevaFila2);
+            rutas.insertarColumna(nuevaColumna2);
+            rutas.insertar(y.nombre, x.id, y.id, y.distancia);
+            rutas.insertar(y.nombre, y.id, x.id, y.distancia);
+        }
+    }
+    var lista_rutas = CircularJSON.stringify(rutas);
+    console.log(rutas.graficar());
+    console.log(rutas.obtenerMatriz());
+    sessionStorage.setItem("rutas",JSON.stringify(lista_rutas));
+    alert("Rutas cargadas con exito");
 }
 
 function cargaInventario(json){
