@@ -1,10 +1,48 @@
+class nodoLista{
+    constructor(nodoProducto,siguiente){
+        this.nodoProducto = nodoProducto;
+        this.siguiente= siguiente;
+    }
+}
+
+class listaProductos{
+    constructor(){
+        this.cabeza = null;
+    }
+
+    agregar(nodoProducto){
+        const nuevo = new nodoLista(nodoProducto,null);
+        if(this.cabeza!=null){
+            this.cabeza=nuevo;
+        }else{
+            var aux = this.cabeza;
+            while(aux.siguiente!=null){
+                aux=aux.siguiente;
+            }
+            aux.siguiente= nuevo;
+        }
+    }
+
+    graficar(){
+        var node ="[label = \"{<n>";
+        var aux = this.cabeza;
+        while(aux.siguiente!=null){
+            node = node + aux.nodoProducto.id+"-"+ aux.nodoProducto.nombre+"|";
+            aux=aux.siguiente;
+        }
+        node = node + aux.nodoProducto.id+"-"+ aux.nodoProducto.nombre+"</p>}];";
+        return node;
+    }
+}
+
 class Venta {
-    constructor(idVenta, nombreVendedor, nombreCliente, totalVenta, posicion) {
+    constructor(idVenta, vendedor,cliente, totalVenta, posicion,listaProductos) {
         this.idVenta = idVenta;
-        this.nombreVendedor = nombreVendedor;
-        this.nombreCliente = nombreCliente;
+        this.vendedor = vendedor;
+        this.cliente = cliente;
         this.totalVenta = totalVenta;
         this.posicion = posicion;
+        this.listaProductos = listaProductos;
     }
 }
 
@@ -33,13 +71,9 @@ class TablaHash {
         this.aumentarSize(hash);
     }
 
-    insertarVenta(idVenta, nombreVendedor, nombreCliente, totalVenta) {
-        var venta = new Venta();
-        venta.idVenta = idVenta;
-        venta.nombreVendedor = nombreVendedor;
-        venta.nombreCliente = nombreCliente;
-        venta.totalVenta = totalVenta;
-        venta.posicion = parseInt(this.modular(venta),10);
+    insertarVenta(idVenta, vendedor, cliente, totalVenta,listaProductos) {
+        var posicion = parseInt(this.modular(venta),10);
+        var venta = new Venta(idVenta,vendedor,cliente,totalVenta,posicion,listaProductos);
         this.insertarHash(this.hash, venta);
     }
 
@@ -64,11 +98,7 @@ class TablaHash {
         }
         
         if (ContadorDatos > (this.sizeHash / 2)) {
-            console.log(hash);
-            console.log("contador "+ContadorDatos);
-            console.log("tam "+hash.length);
             this.buscarSize(this.sizeHash);
-            console.log("tam nuevo"+hash.length);
             this.hash = new Array(this.sizeHash);
             for (let num = 0; num < hash.length; num++) {
                 if (hash[num] != undefined) {
@@ -99,28 +129,27 @@ class TablaHash {
     Graficar() {
         console.log(this.hash);
         var grafica = "digraph Tabla{";
-        grafica = grafica + "\r\n";
-        grafica = grafica + "node[shape=plaintext];";
-        grafica = grafica + "\r\n";
-        grafica = grafica + "node1[label=<";
-        grafica = grafica + "\r\n";
-        grafica = grafica + "<TABLE BORDER=\"0\" CELLBORDER=\"1\" CELLSPACING=\"0\" CELLPADDING=\"4\">";
+        grafica += "\r\n";
+        grafica += "node[shape=record,width=1,height=1];";
+        grafica += "\r\n";
+        grafica += "node [width = 5];"
+        grafica += "\r\n";
+        grafica += "nodet[label=\"";
         for (let num = 0; num < this.sizeHash; num++) {
-            grafica = grafica + "<TR>";
-            grafica = grafica + "<TD>";
-            grafica = grafica + num;
-            grafica = grafica + "</TD>";
-            grafica = grafica + "<TD>";
-            if (this.hash[num] != undefined) {
-                grafica = grafica + this.hash[num].idVenta;
+            grafica = "<f"+num+">"+this.hash[num].idVenta+"- Cliente: "+hash[num].cliente.nombre+" Total: "+ this.hash[num].totalVenta;
+            if(this.sizeHash-1 != num){
+                grafica= "|";
             }
-            grafica = grafica + "</TD>";
-            grafica = grafica + "</TR>";
         }
-        grafica = grafica + "</TABLE>";
-        grafica = grafica + ">];";
-        grafica = grafica + "\r\n";
-        grafica = grafica + "}";
+        grafica += ",height=2.5];";
+        grafica += "\r\n";
+        grafica += "node [width = 1.5];"
+        for (let num = 0; num < this.sizeHash; num++) {
+            grafica += "node"+num+this.hash[num].listaProductos.graficar();
+            grafica += "nodet:f"+num+"->"+"node"+num+":n;"
+        }
+        grafica += "\r\n";
+        grafica += "}";
         console.log(grafica);
     }
 }

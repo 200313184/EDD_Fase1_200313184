@@ -62,7 +62,13 @@ function realizarCarga(texto,tipo){
         cargaInventario(json);
     }else if(tipo==6){
         cargaRutas(json);
+    }else if(tipo==7){
+        CargarVentas(json);
     }
+}
+
+function CargarVentas(json){
+
 }
 
 function cargaRutas(json){
