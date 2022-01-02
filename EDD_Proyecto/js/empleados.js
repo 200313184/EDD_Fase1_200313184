@@ -139,6 +139,30 @@ class avl{
         }
     }
 
+    buscarNombre(nombre){
+        if(this.raiz != null){
+            return this.buscarRecursivaNombre(this.raiz, nombre);
+        }
+        return null;
+    }
+
+    buscarRecursivaNombre(nodo, nombre){
+        if(nodo != null){
+            if(nodo.nombre == nombre){
+                return nodo;
+            }
+            let izq = this.buscarRecursivaNombre(nodo.izq, nombre);
+            if(izq != null){
+                return izq;
+            }
+            let der = this.buscarRecursivaNombre(nodo.der, nombre);
+            if(der != null){
+                return der;
+            }        
+        }
+        return null;
+    }
+
     buscar(id){
         if(this.raiz == null){
             return null;
