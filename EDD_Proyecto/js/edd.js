@@ -51,6 +51,10 @@ function validar_usuario(){
         sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
         var lista_proveedores = CircularJSON.stringify(proveedores);
         sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
+        var lista_inventario = CircularJSON.stringify(inventario);
+        sessionStorage.setItem("inventario",JSON.stringify(lista_inventario));
+        var lista_rutas = CircularJSON.stringify(rutas);
+        sessionStorage.setItem("rutas",JSON.stringify(lista_rutas));
         let usu = vendedores.buscar(200313184);
         var l_usuario = CircularJSON.stringify(usu);
         sessionStorage.setItem("usuario",JSON.stringify(l_usuario));
@@ -65,6 +69,10 @@ function validar_usuario(){
                 sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
                 var lista_proveedores = CircularJSON.stringify(proveedores);
                 sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
+                var lista_inventario = CircularJSON.stringify(inventario);
+                sessionStorage.setItem("inventario",JSON.stringify(lista_inventario));
+                var lista_rutas = CircularJSON.stringify(rutas);
+                sessionStorage.setItem("rutas",JSON.stringify(lista_rutas));
                 var l_usuario = CircularJSON.stringify(usuario);
                 sessionStorage.setItem("usuario",JSON.stringify(l_usuario));
                 location.href="./examples/vendedor.html";
