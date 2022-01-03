@@ -81,7 +81,7 @@
                         <div class="col-md-4">
                           <div class="form-group">
                             <label class="bmd-label-floating">ID</label>
-                            <input type="text" id="id_producto" class="form-control">
+                            <input type="text" id="id_hash" class="form-control">
                           </div>
                         </div>
                         <div class="col-md-4">
@@ -99,7 +99,7 @@
                       </div>
                       <div class="row">
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-primary pull-right" >Iniciar lista de productos</button>
+                            <button type="button" class="btn btn-primary pull-right" onclick="iniciar_lista()">Iniciar lista de productos</button>
                         </div>
                       </div>
                       <div class="row">
@@ -116,10 +116,10 @@
                           </div>
                         </div>
                         <div class="col-md-4">
-                            <button type="button" class="btn btn-primary pull-right" >Agregar producto</button>
+                            <button type="button" class="btn btn-primary pull-right" onclick="agregar_producto()">Agregar producto</button>
                         </div>
                       </div>
-                      <button type="button" class="btn btn-primary pull-right" >Agregar</button>
+                      <button type="button" class="btn btn-primary pull-right" onclick="agregar_venta()">Agregar</button>
                       <div class="clearfix"></div>
                     </form>
                   </div>
@@ -155,7 +155,7 @@
   <script src="../js/arbolb.js"></script>
   <script src="../js/grafo.js"></script>
   <script src="../js/proveedores.js"></script>
-  <script src="../js/vendedor.js"></script>
+  <script src="../js/adminVentas.js"></script>
 </body>
 
 </html>
