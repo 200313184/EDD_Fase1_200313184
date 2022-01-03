@@ -1,7 +1,8 @@
 class nodoLista{
-    constructor(nodoProducto,siguiente){
+    constructor(nodoProducto,cantidad,siguiente){
         this.nodoProducto = nodoProducto;
         this.siguiente= siguiente;
+        this.cantidad = cantidad;
     }
 }
 
@@ -10,8 +11,8 @@ class listaProductos{
         this.cabeza = null;
     }
 
-    agregar(nodoProducto){
-        const nuevo = new nodoLista(nodoProducto,null);
+    agregar(nodoProducto,cantidad){
+        const nuevo = new nodoLista(nodoProducto,cantidad,null);
         if(this.cabeza!=null){
             this.cabeza=nuevo;
         }else{
