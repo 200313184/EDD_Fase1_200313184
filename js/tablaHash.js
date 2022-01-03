@@ -13,7 +13,7 @@ class listaProductos{
 
     agregar(nodoProducto,cantidad){
         const nuevo = new nodoLista(nodoProducto,cantidad,null);
-        if(this.cabeza!=null){
+        if(this.cabeza==null){
             this.cabeza=nuevo;
         }else{
             var aux = this.cabeza;
@@ -28,10 +28,10 @@ class listaProductos{
         var node ="[label = \"{<n>";
         var aux = this.cabeza;
         while(aux.siguiente!=null){
-            node = node + aux.nodoProducto.id+"-"+ aux.nodoProducto.nombre+"|";
+            node = node + aux.nodoProducto.id+"-"+ aux.nodoProducto.nombre+" Cantidad: "+ aux.cantidad+"|";
             aux=aux.siguiente;
         }
-        node = node + aux.nodoProducto.id+"-"+ aux.nodoProducto.nombre+"</p>}];";
+        node = node + aux.nodoProducto.id+"-"+ aux.nodoProducto.nombre+" Cantidad: "+ aux.cantidad+"}\"];";
         return node;
     }
 }
@@ -131,6 +131,10 @@ class TablaHash {
         console.log(this.hash);
         var grafica = "digraph Tabla{";
         grafica += "\r\n";
+        grafica += "nodesep=.05;";
+        grafica += "\r\n";
+        grafica += "rankdir=LR;";
+        grafica += "\r\n";
         grafica += "node[shape=record,width=1,height=1];";
         grafica += "\r\n";
         grafica += "node [width = 5];"
@@ -146,12 +150,14 @@ class TablaHash {
                 grafica+= "|";
             }
         }
-        grafica += ",height=2.5];";
+        grafica += "\",height=2.5];";
         grafica += "\r\n";
         grafica += "node [width = 1.5];"
         for (let num = 0; num < this.sizeHash; num++) {
             if(this.hash[num]!=null){
+                grafica += "\r\n";
                 grafica += "node"+num+this.hash[num].listaProductos.graficar();
+                grafica += "\r\n";
                 grafica += "nodet:f"+num+"->"+"node"+num+":n;"
             }
         }
