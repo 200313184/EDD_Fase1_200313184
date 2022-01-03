@@ -1,37 +1,69 @@
 {  "rutas":
-    [  {    "id":1,
-            "nombre":"bodega1",
-            "adyacentes":[  {   "id":3,
-                                "nombre":"bodega3",
-                                "distancia":15
+    [  {    "id":0,
+            "nombre":"V0",
+            "adyacentes":[  {   "id":2,
+                                "nombre":"V2",
+                                "distancia":2
                             },  
-                            {  "id":5,
-                                "nombre":"bodega5",
-                                "distancia":5
+                            {  "id":1,
+                                "nombre":"V1",
+                                "distancia":9
+                            },  
+                            {  "id":4,
+                                "nombre":"V4",
+                                "distancia":6
                             }
                         ]
         },  
-        {  "id":2,
-            "nombre":"bodega2",
-            "adyacentes":[  {  "id":3,
-                                "nombre":"bodega3",
-                                "distancia":5
+        {  "id":1,
+            "nombre":"V1",
+            "adyacentes":[  {  "id":0,
+                                "nombre":"V0",
+                                "distancia":9
                             },  
-                            {  "id":4,
-                                "nombre":"bodega4",
-                                "distancia":2
+                            {  "id":2,
+                                "nombre":"V2",
+                                "distancia":3
+                            }
+                        ]
+        },  
+        {   "id":2,
+            "nombre":"V2",
+            "adyacentes":[  {  "id":0,
+                                "nombre":"V0",
+                                "distancia":9
+                            },
+                            {  "id":1,
+                                "nombre":"V1",
+                                "distancia":3
+                            },  
+                            {   "id":3,
+                                "nombre":"V3",
+                                "distancia":5 
                             }
                         ]
         },  
         {   "id":3,
-            "nombre":"bodega3",
-            "adyacentes":[  {  "id":1,
-                                "nombre":"bodega1",
-                                "distancia":15
+            "nombre":"V3",
+            "adyacentes":[  {  "id":2,
+                                "nombre":"V2",
+                                "distancia":5
                             },  
-                            {   "id":2,
-                                "nombre":"bodega2",
-                                "distancia":5 
+                            {   "id":4,
+                                "nombre":"V4",
+                                "distancia":1 
+                            }
+                        ]
+        },  
+        {   "id":4,
+            "nombre":"V4",
+            "adyacentes":[  {  "id":0,
+                                "nombre":"V0",
+                                "distancia":6
+                            },  
+                            {   "id":3,
+                                "nombre":"V3",
+                                "distancia":1
                             }
                         ]
         }

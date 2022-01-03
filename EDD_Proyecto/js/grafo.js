@@ -160,8 +160,8 @@ class Grafo{
                 return nuevo;
             }else{
                 while(pivote.abajo != null){
-                    if(nuevo.valorFila == pivote.der.valorFila){
-                        return pivote.der;
+                    if(nuevo.valorFila == pivote.abajo.valorFila){
+                        return pivote.abajo;
                     }else if(nuevo.valorFila < pivote.abajo.valorFila){
                         nuevo.abajo = pivote.abajo;
                         nuevo.arriba = pivote;
@@ -344,6 +344,7 @@ class Grafo{
         } 
 
         const distance = new Array(rows).fill(Infinity);
+        const pre = new Array(rows).fill(-1);
         distance[start] = 0;
 
         for(let i = 0; i < rows; i++) {
@@ -351,23 +352,46 @@ class Grafo{
                 for(let j = 0; j < cols; j++) {
                     if(matrix[i][j] + distance[i] < distance[j]) {
                         distance[j] = matrix[i][j] + distance[i];
+                        pre[j] = i;
                     }
                 }
             }
         }
-        return distance;
+        return {"distancia": distance, "predecesores":pre};
     }
 
     prueba(){
         let matrix= [
-            [0, 9, 2, Infinity, 6],
+            [0, 9, 2, Infinity, 3],
             [9, 0, 3, Infinity, Infinity],
             [2, 3, 0, 5, Infinity],
             [Infinity, Infinity, 5, 0, 1],
-            [6, Infinity, Infinity, 1, 0]
+            [3, Infinity, Infinity, 1, 0]
         ];
-        
-        console.log(this.Dijkstra(matrix, 1));
+
+        let inicio = 0;
+        let calculo = this.Dijkstra(matrix, inicio);
+        console.log("Inicio " + inicio);
+        let fin = 1;
+        let validacion = calculo.predecesores[fin];
+        let nuevoInicio = calculo.predecesores[fin];
+        console.log("pasando por " + nuevoInicio);
+
+        if(inicio == validacion){
+            console.log("Encontrado a " + fin );
+        }else{
+            while(validacion != -1){
+                let calculoRecursiva =  this.Dijkstra(matrix, nuevoInicio);
+                validacion = calculoRecursiva.predecesores[fin];
+                if(nuevoInicio == validacion){
+                    console.log("Encontrado a " + fin );
+                    break;
+                }else{
+                    nuevoInicio = calculoRecursiva.predecesores[fin];
+                    console.log("pasando por " + nuevoInicio);
+                }
+            }
+        }
     }
 
     obtenerMaximo(){
@@ -375,7 +399,7 @@ class Grafo{
         while(pivoteX.abajo != null){
             pivoteX = pivoteX.abajo;
         }
-        return pivoteX.valorFila;
+        return pivoteX.valorFila + 1;
     }
 
     obtenerMatriz(){
@@ -387,9 +411,9 @@ class Grafo{
             let tam = this.obtenerMaximo();
             console.log(tam);
             arreglo = new Array(this.obtenerMaximo()).fill(Infinity);
-            arreglo[pivoteX.valorFila - 1] = 0;
+            arreglo[pivoteX.valorFila] = 0;
             while(pivoteY != null){
-                arreglo[pivoteY.valorColumna - 1] = pivoteY.distancia;
+                arreglo[pivoteY.valorColumna] = pivoteY.distancia;
                 pivoteY = pivoteY.der;
             }
             mat.push(arreglo);
@@ -399,23 +423,54 @@ class Grafo{
     }
 
     obtenerRutaMinima(inicio, fin){
+        let cadena="graph grafo {\n";
+        cadena+= "layout=neato;\n";
         let mat = this.obtenerMatriz();
-        let rutas  = this.Dijkstra(mat, inicio);
-        return rutas[fin];
+        let calculo  = this.Dijkstra(mat, inicio);
+        console.log("Inicio " + inicio);
+        let validacion = calculo.predecesores[fin];
+        let nuevoInicio = calculo.predecesores[fin];
+        if(inicio == validacion){
+            cadena+= this.obtenerNodoPosicion(inicio)+ "--" + this.obtenerNodoPosicion(fin) + "[label=\"" + calculo.distancia[fin] + "\"];\n";
+        }else{
+            cadena+= this.obtenerNodoPosicion(inicio)+ "--" + this.obtenerNodoPosicion(nuevoInicio) + "[label=\"" + calculo.distancia[nuevoInicio] + "\"];\n";
+            while(validacion != -1){
+                let calculoRecursiva =  this.Dijkstra(mat, nuevoInicio);
+                validacion = calculoRecursiva.predecesores[fin];
+                if(nuevoInicio == validacion){
+                    cadena+= this.obtenerNodoPosicion(nuevoInicio)+ "--" + this.obtenerNodoPosicion(fin) + "[label=\"" + calculoRecursiva.distancia[fin] + "\"];\n";
+                    break;
+                }else{
+                    cadena+= this.obtenerNodoPosicion(nuevoInicio)+ "--" + this.obtenerNodoPosicion(calculoRecursiva.predecesores[fin]) + "[label=\"" + calculoRecursiva.distancia[calculoRecursiva.predecesores[fin]] + "\"];\n";
+                    nuevoInicio = calculoRecursiva.predecesores[fin];
+                }
+            }
+        }
+        cadena+="}\n";
+        return cadena;
+    }
+
+    obtenerNodoPosicion(pos){
+        let pivoteX = this.inicio.filas;
+        while(pivoteX.abajo != null){
+            if(pivoteX.valorFila == pos){
+                return pivoteX.nombre.replaceAll(' ', '');
+            }
+            pivoteX = pivoteX.abajo;
+        }
+        return pivoteX.valorFila;
     }
 
     graficarGrafo(){
         let cadena="graph grafo {\n";
         cadena+= "layout=neato;\n";
-        let max = this.obtenerMaximo() + 1;
         let pivoteX = this.inicio.filas;
         while(pivoteX != null){
             let pivoteY = pivoteX.der;
             while(pivoteY != null){
-                if(pivoteX.valorFila > pivoteY.valorColumna){
-                    break;
+                if(pivoteX.valorFila < pivoteY.valorColumna){
+                    cadena+= pivoteX.nombre.replaceAll(' ', '') + "--" + pivoteY.nombre.replaceAll(' ', '') + "[label=\"" + pivoteY.distancia + "\"];\n";
                 }
-                cadena+= pivoteX.nombre.replaceAll(' ', '') + "--" + pivoteY.nombre.replaceAll(' ', '') + "[label=\"" + pivoteY.distancia + "\"];\n";
                 pivoteY = pivoteY.der;
             }
             pivoteX = pivoteX.abajo;
