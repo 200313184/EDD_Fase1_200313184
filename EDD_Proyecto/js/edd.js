@@ -2,6 +2,7 @@ let vendedores = new avl();
 let proveedores = new abb();
 let inventario = new arbolB();
 let rutas = new Grafo();
+let ventas = new TablaHash();
 
 function inicializar_listas(){
     var tem_vendedores = JSON.parse(sessionStorage.getItem("vendedores"));
@@ -32,6 +33,15 @@ function inicializar_listas(){
         inventario = new arbolB();
     }
 
+    var tem_ventas = JSON.parse(sessionStorage.getItem("ventas"));
+    if(tem_ventas != null){
+        ventas = new TablaHash();
+        tem_ventas = CircularJSON.parse(tem_ventas);
+        Object.assign(ventas,tem_ventas);
+    }else{
+        ventas = new TablaHash();
+    }
+
     var tem_rutas = JSON.parse(sessionStorage.getItem("rutas"));
     if(tem_rutas != null){
         rutas = new Grafo();
@@ -55,6 +65,8 @@ function validar_usuario(){
         sessionStorage.setItem("inventario",JSON.stringify(lista_inventario));
         var lista_rutas = CircularJSON.stringify(rutas);
         sessionStorage.setItem("rutas",JSON.stringify(lista_rutas));
+        var lista_ventas = CircularJSON.stringify(ventas);
+        sessionStorage.setItem("ventas",JSON.stringify(lista_ventas));
         let usu = vendedores.buscar(200313184);
         var l_usuario = CircularJSON.stringify(usu);
         sessionStorage.setItem("usuario",JSON.stringify(l_usuario));
@@ -73,6 +85,8 @@ function validar_usuario(){
                 sessionStorage.setItem("inventario",JSON.stringify(lista_inventario));
                 var lista_rutas = CircularJSON.stringify(rutas);
                 sessionStorage.setItem("rutas",JSON.stringify(lista_rutas));
+                var lista_ventas = CircularJSON.stringify(ventas);
+                sessionStorage.setItem("ventas",JSON.stringify(lista_ventas));
                 var l_usuario = CircularJSON.stringify(usuario);
                 sessionStorage.setItem("usuario",JSON.stringify(l_usuario));
                 location.href="./examples/vendedor.html";
