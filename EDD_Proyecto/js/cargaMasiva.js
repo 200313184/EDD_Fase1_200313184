@@ -74,8 +74,33 @@ function realizarCarga(texto,tipo){
     }
 }
 
-function CargarVentas(json){
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
 
+function CargarVentas(json){
+    for(x of json.ventas){
+        let vend = vendedores.buscarNombre(x.vendedor);
+        if(vend != null){
+            let clientes = new listaCliente();
+            Object.assign(clientes, vend.lista_clientes);
+
+            let cli = clientes.buscarCliente(x.cliente);
+            let lista_productos = new listaProductos();
+            let total = 0;
+            if(cli != null){
+                for(y of x.productos){
+                    let producto = inventario.buscar(x.id);
+                    if(producto != null){
+                        lista_productos.agregar(producto);
+                        total += producto.precio * x.cantidad;
+                        producto.cantidad = producto.cantidad - x.cantidad;
+                    }
+                }
+            }
+            ventas.insertarVenta(getRandomArbitrary(10, 99999), vend, cli, total, lista_productos);
+        }
+    }
 }
 
 function cargaRutas(json){

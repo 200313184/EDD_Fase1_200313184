@@ -90,6 +90,34 @@ class arbolB{
         }
     }
 
+    buscar(id){
+        return this.busquedaRecursiva(this.inicio, id);
+    }
+
+    busquedaRecursiva(pagina_actual, id){
+        if(pagina_actual != null){
+            let pivote = pagina_actual.inicio;
+            while(pivote != null){
+                if(pivote.id == id){
+                    return pivote;
+                }
+                if(nuevo.id < pivote.id){
+                    if(pivote.paginaIzq != null){
+                        return this.busquedaRecursiva(pivote.paginaIzq, id);
+                    }
+                    break;
+                }else if(pivote.sig == null){
+                    if(pivote.paginaDer != null){
+                        return this.busquedaRecursiva(pivote.paginaDer, id);
+                    }
+                    break;
+                }
+                pivote = pivote.sig;
+            }
+        }
+        return null;
+    }
+
     insertarRecursivo(pagina, nuevo){
         let pivote = pagina.inicio;
         while(pivote != null){
