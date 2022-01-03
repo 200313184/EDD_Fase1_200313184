@@ -104,6 +104,13 @@ function CargarVentas(json){
         }
     }
     ventas.Graficar();
+
+    var lista_ventas = CircularJSON.stringify(ventas);
+    sessionStorage.setItem("ventas",JSON.stringify(lista_ventas));
+
+    var lista_inventario = CircularJSON.stringify(inventario);
+    sessionStorage.setItem("inventario",JSON.stringify(lista_inventario));
+    alert("Ventas cargadas con exito");
 }
 
 function cargaRutas(json){
