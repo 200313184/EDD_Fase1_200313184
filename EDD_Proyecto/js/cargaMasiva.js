@@ -80,17 +80,22 @@ function getRandomArbitrary(min, max) {
 
 function CargarVentas(json){
     for(x of json.ventas){
+        console.log("busqueda de vendedor");
         let vend = vendedores.buscarNombre(x.vendedor);
+        console.log(vend);
         if(vend != null){
             let clientes = new listaCliente();
             Object.assign(clientes, vend.lista_clientes);
-
+            console.log("busqueda de cliente");
             let cli = clientes.buscarCliente(x.cliente);
+            console.log(cli);
             let lista_productos = new listaProductos();
             let total = 0;
             if(cli != null){
                 for(y of x.productos){
+                    console.log("busqueda de producto");
                     let producto = inventario.buscar(x.id);
+                    console.log(producto);
                     if(producto != null){
                         lista_productos.agregar(producto);
                         total += producto.precio * x.cantidad;
@@ -101,6 +106,9 @@ function CargarVentas(json){
             ventas.insertarVenta(getRandomArbitrary(10, 99999), vend, cli, total, lista_productos);
         }
     }
+    console.log(ventas.Graficar());
+    sessionStorage.setItem("ventas",JSON.stringify(lista_rutas));
+    alert("ventas cargadas con exito");
 }
 
 function cargaRutas(json){
@@ -120,7 +128,7 @@ function cargaRutas(json){
     }
     var lista_rutas = CircularJSON.stringify(rutas);
     console.log(rutas.graficar());
-    console.log(rutas.obtenerMatriz());
+    console.log(rutas.graficarGrafo());
     sessionStorage.setItem("rutas",JSON.stringify(lista_rutas));
     alert("Rutas cargadas con exito");
 }
@@ -128,10 +136,8 @@ function cargaRutas(json){
 function cargaInventario(json){
     for(x of json.productos){
         inventario.insertar(x.id, x.nombre, x.precio, x.cantidad);
-        console.log(inventario.graficar());
     }
     var lista_inventario = CircularJSON.stringify(inventario);
-    console.log(inventario.graficar());
     sessionStorage.setItem("inventario",JSON.stringify(lista_inventario));
     alert("Inventario cargado con exito");
 }
@@ -141,7 +147,6 @@ function cargaVendedores(json){
         vendedores.insertar(x.id, x.nombre, x.edad, x.correo, x.password);
     }
     var lista_vendedores = CircularJSON.stringify(vendedores);
-    console.log(vendedores.graficar());
     sessionStorage.setItem("vendedores",JSON.stringify(lista_vendedores));
     alert("Vendedores cargados con exito");
 }
@@ -168,7 +173,6 @@ function cargaProveedores(json){
         proveedores.insertar(x.id, x.nombre, x.direccion, x.telefono, x.correo);
     }
     var lista_proveedores = CircularJSON.stringify(proveedores);
-    console.log(proveedores.graficar());
     sessionStorage.setItem("proveedores",JSON.stringify(lista_proveedores));
     alert("Proveedores cargados con exito");
 }

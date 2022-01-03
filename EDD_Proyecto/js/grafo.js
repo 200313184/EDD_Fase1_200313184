@@ -219,7 +219,7 @@ class Grafo{
         let pivote = this.inicio.columnas;
         let cadena = "";
         while(pivote != null){
-            cadena+="x" + pivote.valorColumna + "[label=\"valorFila: " + pivote.valorColumna + "\",rankdir=LR];\n";
+            cadena+="x" + pivote.valorColumna + "[label=\"valorColumna: " + pivote.nombre + "\",rankdir=LR];\n";
             pivote = pivote.der;
         }
         return cadena;
@@ -235,7 +235,7 @@ class Grafo{
             }else{
                 cadena+="rank=max;";
             }
-            cadena+="y" + pivote.valorFila + "[label=\"valorColumna: " + pivote.valorFila + "\"];\n";
+            cadena+="y" + pivote.valorFila + "[label=\"valorfila: " + pivote.nombre + "\"];\n";
             let piv = pivote.der;
             while(piv != null){
                 piv.identificador = this.contadorNodo;
@@ -403,4 +403,25 @@ class Grafo{
         let rutas  = this.Dijkstra(mat, inicio);
         return rutas[fin];
     }
+
+    graficarGrafo(){
+        let cadena="graph grafo {\n";
+        cadena+= "layout=neato;\n";
+        let max = this.obtenerMaximo() + 1;
+        let pivoteX = this.inicio.filas;
+        while(pivoteX != null){
+            let pivoteY = pivoteX.der;
+            while(pivoteY != null){
+                if(pivoteX.valorFila > pivoteY.valorColumna){
+                    break;
+                }
+                cadena+= pivoteX.nombre.replaceAll(' ', '') + "--" + pivoteY.nombre.replaceAll(' ', '') + "[label=\"" + pivoteY.distancia + "\"];\n";
+                pivoteY = pivoteY.der;
+            }
+            pivoteX = pivoteX.abajo;
+        }
+        cadena+="}\n";
+        return cadena;
+    }
+
 }
