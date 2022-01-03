@@ -3,6 +3,7 @@ let proveedores = new abb();
 let usuario = new nodoAvl();
 let inventario = new arbolB();
 let rutas = new Grafo();
+let ventas = new TablaHash();
 
 function inicializar_listas(){
     console.log("Entro a inicializar listas ");
@@ -31,10 +32,16 @@ function inicializar_listas(){
     tem_usuarios = CircularJSON.parse(tem_usuarios);
     Object.assign(usuario,tem_usuarios);
 
+    var tem_ventas = JSON.parse(sessionStorage.getItem("ventas"));
+    ventas = new TablaHash();
+    tem_ventas = CircularJSON.parse(tem_ventas);
+    Object.assign(ventas,tem_ventas);
+
     if(usuario.id == undefined || usuario.id == NaN){
         location.href="../login.html";
     }
 }
+
 
 function agregar_cliente(){
     let id_cliente1 = document.getElementById('id_cliente1').value;

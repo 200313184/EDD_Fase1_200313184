@@ -397,4 +397,10 @@ class Grafo{
         }
         return mat;
     }
+
+    obtenerRutaMinima(inicio, fin){
+        let mat = this.obtenerMatriz();
+        let rutas  = this.Dijkstra(mat, inicio);
+        return rutas[fin];
+    }
 }
