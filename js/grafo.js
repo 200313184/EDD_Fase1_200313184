@@ -430,23 +430,37 @@ class Grafo{
         console.log("Inicio " + inicio);
         let validacion = calculo.predecesores[fin];
         let nuevoInicio = calculo.predecesores[fin];
+        let encontrado = false;
+        let totalDistancia = 0;
         if(inicio == validacion){
             cadena+= this.obtenerNodoPosicion(inicio)+ "--" + this.obtenerNodoPosicion(fin) + "[label=\"" + calculo.distancia[fin] + "\"];\n";
+            totalDistancia+=calculo.distancia[fin];
+            encontrado = true;
         }else{
             cadena+= this.obtenerNodoPosicion(inicio)+ "--" + this.obtenerNodoPosicion(nuevoInicio) + "[label=\"" + calculo.distancia[nuevoInicio] + "\"];\n";
+            totalDistancia+=calculo.distancia[nuevoInicio];
             while(validacion != -1){
                 let calculoRecursiva =  this.Dijkstra(mat, nuevoInicio);
                 validacion = calculoRecursiva.predecesores[fin];
                 if(nuevoInicio == validacion){
                     cadena+= this.obtenerNodoPosicion(nuevoInicio)+ "--" + this.obtenerNodoPosicion(fin) + "[label=\"" + calculoRecursiva.distancia[fin] + "\"];\n";
+                    totalDistancia+=calculoRecursiva.distancia[fin];
+                    encontrado = true;
                     break;
                 }else{
                     cadena+= this.obtenerNodoPosicion(nuevoInicio)+ "--" + this.obtenerNodoPosicion(calculoRecursiva.predecesores[fin]) + "[label=\"" + calculoRecursiva.distancia[calculoRecursiva.predecesores[fin]] + "\"];\n";
+                    totalDistancia+=calculoRecursiva.distancia[calculoRecursiva.predecesores[fin]];
                     nuevoInicio = calculoRecursiva.predecesores[fin];
                 }
             }
         }
+        cadena+="nTotal[label=\"Total: "+ totalDistancia + "\"];\n"
         cadena+="}\n";
+        if(!encontrado){
+            cadena="graph grafo {\n";
+            cadenad+="n[label=\"Camino no encontrado\"];\n"
+            cadena+="}\n";
+        }
         return cadena;
     }
 

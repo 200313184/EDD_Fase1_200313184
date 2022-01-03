@@ -42,6 +42,20 @@ function inicializar_listas(){
     }
 }
 
+function agregar_producto(){
+    let id_producto = document.getElementById('id_producto').value;
+    let nombre_producto = document.getElementById('nombre_producto').value;
+    let precio = document.getElementById('precio').value;
+    let cantidad = document.getElementById('cantidad').value;
+
+    inventario.insertar(id_producto,nombre_producto, precio, cantidad);
+
+    var lista_inventario = CircularJSON.stringify(inventario);
+    sessionStorage.setItem("inventario",JSON.stringify(lista_inventario));
+
+    alert("Producto agregado con exito");
+}
+
 function agregar_proveedor(){
     let id_proveedor = document.getElementById('id_proveedor').value;
     let nombre_proveedor = document.getElementById('nombre_proveedor').value;
