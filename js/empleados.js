@@ -51,6 +51,17 @@ class listaCliente{
             console.log("Error al eliminar, lista vacia");
         }
     }
+
+    buscarCliente(nombre){
+        let pivote = this.inicio;
+        while(pivote != null){
+            if(pivote.nombre == nombre){
+                return pivote;
+            }
+            pivote = pivote.sig;
+        }
+        return null;
+    }
 }
 
 class nodoMeses{
