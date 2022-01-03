@@ -80,35 +80,28 @@ function getRandomArbitrary(min, max) {
 
 function CargarVentas(json){
     for(x of json.ventas){
-        console.log("busqueda de vendedor");
         let vend = vendedores.buscarNombre(x.vendedor);
-        console.log(vend);
         if(vend != null){
             let clientes = new listaCliente();
             Object.assign(clientes, vend.lista_clientes);
-            console.log("busqueda de cliente");
+
             let cli = clientes.buscarCliente(x.cliente);
-            console.log(cli);
             let lista_productos = new listaProductos();
             let total = 0;
             if(cli != null){
                 for(y of x.productos){
-                    console.log("busqueda de producto");
                     let producto = inventario.buscar(x.id);
-                    console.log(producto);
                     if(producto != null){
-                        lista_productos.agregar(producto);
+                        lista_productos.agregar(producto,x.cantidad);
                         total += producto.precio * x.cantidad;
                         producto.cantidad = producto.cantidad - x.cantidad;
                     }
                 }
             }
-            ventas.insertarVenta(getRandomArbitrary(10, 99999), vend, cli, total, lista_productos);
+            ventas.insertarVenta(x.idVendedor, vend, cli, total, lista_productos);
         }
     }
-    console.log(ventas.Graficar());
-    sessionStorage.setItem("ventas",JSON.stringify(lista_rutas));
-    alert("ventas cargadas con exito");
+    ventas.Graficar();
 }
 
 function cargaRutas(json){
