@@ -92,13 +92,15 @@ function CargarVentas(json){
                 for(y of x.productos){
                     let producto = inventario.buscar(x.id);
                     if(producto != null){
+                        console.log("Esta agregando");
                         lista_productos.agregar(producto,x.cantidad);
                         total += producto.precio * x.cantidad;
                         producto.cantidad = producto.cantidad - x.cantidad;
                     }
                 }
             }
-            ventas.insertarVenta(x.idVendedor, vend, cli, total, lista_productos);
+            console.log(x.id);
+            ventas.insertarVenta(x.id, vend, cli, total, lista_productos);
         }
     }
     ventas.Graficar();

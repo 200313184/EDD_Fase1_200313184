@@ -101,7 +101,7 @@ class arbolB{
                 if(pivote.id == id){
                     return pivote;
                 }
-                if(nuevo.id < pivote.id){
+                if(id < pivote.id){
                     if(pivote.paginaIzq != null){
                         return this.busquedaRecursiva(pivote.paginaIzq, id);
                     }

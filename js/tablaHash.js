@@ -37,12 +37,12 @@ class listaProductos{
 }
 
 class Venta {
-    constructor(idVenta, vendedor,cliente, totalVenta, posicion,listaProductos) {
+    constructor(idVenta, vendedor,cliente, totalVenta,listaProductos) {
         this.idVenta = idVenta;
         this.vendedor = vendedor;
         this.cliente = cliente;
         this.totalVenta = totalVenta;
-        this.posicion = posicion;
+        this.posicion = 0;
         this.listaProductos = listaProductos;
     }
 }
@@ -72,9 +72,9 @@ class TablaHash {
         this.aumentarSize(hash);
     }
 
-    insertarVenta(idVenta, vendedor, cliente, totalVenta,listaProductos) {
-        var posicion = parseInt(this.modular(venta),10);
-        var venta = new Venta(idVenta,vendedor,cliente,totalVenta,posicion,listaProductos);
+    insertarVenta(idVenta, vendedor, cliente, totalVenta,listaProductos) {        
+        var venta = new Venta(idVenta,vendedor,cliente,totalVenta,listaProductos);
+        venta.posicion = parseInt(this.modular(venta),10);
         this.insertarHash(this.hash, venta);
     }
 
@@ -137,17 +137,23 @@ class TablaHash {
         grafica += "\r\n";
         grafica += "nodet[label=\"";
         for (let num = 0; num < this.sizeHash; num++) {
-            grafica = "<f"+num+">"+this.hash[num].idVenta+"- Cliente: "+hash[num].cliente.nombre+" Total: "+ this.hash[num].totalVenta;
+            grafica += "<f"+num+">";
+            if(this.hash[num]!=null){
+                grafica+=this.hash[num].idVenta+"- Cliente: "+this.hash[num].cliente.nombre+" Total: "+ this.hash[num].totalVenta;
+            }
+            
             if(this.sizeHash-1 != num){
-                grafica= "|";
+                grafica+= "|";
             }
         }
         grafica += ",height=2.5];";
         grafica += "\r\n";
         grafica += "node [width = 1.5];"
         for (let num = 0; num < this.sizeHash; num++) {
-            grafica += "node"+num+this.hash[num].listaProductos.graficar();
-            grafica += "nodet:f"+num+"->"+"node"+num+":n;"
+            if(this.hash[num]!=null){
+                grafica += "node"+num+this.hash[num].listaProductos.graficar();
+                grafica += "nodet:f"+num+"->"+"node"+num+":n;"
+            }
         }
         grafica += "\r\n";
         grafica += "}";
