@@ -58,6 +58,7 @@ function inicializar_listas(){
 }
 
 function agregar_bloque(){
+    transacciones.push({"ventas":transacciones.ventas});
     bloques.agregar(JSON.stringify(transacciones));
     transacciones.ventas=[];
     var lista_transacciones = CircularJSON.stringify(transacciones);

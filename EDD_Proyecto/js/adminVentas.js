@@ -87,11 +87,11 @@ function agregar_venta(){
         let clientes = new listaCliente();
         Object.assign(clientes, vend.lista_clientes);
 
-        let cli = clientes.buscarCliente(nombre_cliente);
-        if(cli != null){
-            ventas.insertarVenta(id_hash, vend, cli, total, compras);
+        //let cli = clientes.buscarCliente(nombre_cliente);
+        //if(cli != null){
+            ventas.insertarVenta(id_hash, vend, nombre_cliente, total, compras);
             transacciones.ventas.push({"id":id_hash,"vendedor":nombre_vendedor,"cliente":nombre_cliente,"productos":productos});
-        }
+        //}
     }
 
     var lista_ventas = CircularJSON.stringify(ventas);
