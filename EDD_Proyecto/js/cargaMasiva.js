@@ -79,7 +79,14 @@ function realizarCarga(texto,tipo){
         cargaRutas(json);
     }else if(tipo==7){
         CargarVentas(json);
+    }else if(tipo==8){
+        CargarClave(json);
     }
+}
+
+function CargarClave(json){
+    sessionStorage.setItem("clave",JSON.stringify(json.clave));
+    alert("Clave cargada con exito");
 }
 
 function getRandomArbitrary(min, max) {
