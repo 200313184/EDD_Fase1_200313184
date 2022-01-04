@@ -103,7 +103,6 @@ function CargarVentas(json){
             ventas.insertarVenta(x.id, vend, cli, total, lista_productos);
         }
     }
-    ventas.Graficar();
 
     var lista_ventas = CircularJSON.stringify(ventas);
     sessionStorage.setItem("ventas",JSON.stringify(lista_ventas));
