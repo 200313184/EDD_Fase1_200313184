@@ -165,5 +165,47 @@ class TablaHash {
         grafica += "}";
         console.log(grafica);
     }
+
+    Graficar(vendedor) {
+        console.log(this.hash);
+        var grafica = "digraph Tabla{";
+        grafica += "\r\n";
+        grafica += "nodesep=.05;";
+        grafica += "\r\n";
+        grafica += "rankdir=LR;";
+        grafica += "\r\n";
+        grafica += "node[shape=record,width=1,height=1];";
+        grafica += "\r\n";
+        grafica += "node [width = 5];"
+        grafica += "\r\n";
+        grafica += "nodet[label=\"";
+        for (let num = 0; num < this.sizeHash; num++) {
+            grafica += "<f"+num+">";
+            if(this.hash[num]!=null){
+                if(this.hash[num].vendedor==vendedor){
+                    grafica+=this.hash[num].idVenta+"- Vendedor: "+this.hash[num].vendedor.nombre+"- Cliente: "+this.hash[num].cliente.nombre+" Total: "+ this.hash[num].totalVenta;
+                }                
+            }            
+            if(this.sizeHash-1 != num){
+                grafica+= "|";
+            }
+        }
+        grafica += "\",height=2.5];";
+        grafica += "\r\n";
+        grafica += "node [width = 1.5];"
+        for (let num = 0; num < this.sizeHash; num++) {
+            if(this.hash[num]!=null){
+                if(this.hash[num].vendedor==vendedor){
+                    grafica += "\r\n";
+                    grafica += "node"+num+this.hash[num].listaProductos.graficar();
+                    grafica += "\r\n";
+                    grafica += "nodet:f"+num+"->"+"node"+num+":n;"
+                } 
+            }
+        }
+        grafica += "\r\n";
+        grafica += "}";
+        console.log(grafica);
+    }
 }
 
