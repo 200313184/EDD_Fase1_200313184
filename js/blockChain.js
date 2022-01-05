@@ -74,10 +74,10 @@ class BlockChain{
         grafica += "</TD>";
         grafica += "</TR>";
     }
-    grafica = grafica + "</TABLE>";
-    grafica = grafica + ">];";
-    grafica = grafica + "\r\n";
-    grafica = grafica + "}";
+    grafica += "</TABLE>";
+    grafica += ">];";
+    grafica +="\r\n";
+    grafica += "}";
     console.log(grafica);
   }
   
