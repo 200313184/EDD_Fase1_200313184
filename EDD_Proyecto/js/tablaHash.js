@@ -156,7 +156,8 @@ class TablaHash {
         for (let num = 0; num < this.sizeHash; num++) {
             if(this.hash[num]!=null){
                 grafica += "\r\n";
-                grafica += "node"+num+this.hash[num].listaProductos.graficar();
+                var copy = Object.assign(new listaProductos(), this.hash[num].listaProductos);
+                grafica += "node"+num+copy.graficar();
                 grafica += "\r\n";
                 grafica += "nodet:f"+num+"->"+"node"+num+":n;"
             }
