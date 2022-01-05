@@ -123,6 +123,9 @@ class listaMeses{
 class nodoAvl{
     constructor(id, nombre, edad, correo, password){
         this.clave = JSON.parse(sessionStorage.getItem("clave"));
+        if(this.clave == null){
+            this.clave = "secret";
+        }
         this.id = parseInt(id, 10);
         var hashNombre = CryptoJS.HmacSHA256(nombre, this.clave);
         this.nombreE = CryptoJS.enc.Hex.stringify(hashNombre);
