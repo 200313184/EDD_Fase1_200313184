@@ -58,7 +58,7 @@ function inicializar_listas(){
 }
 
 function agregar_bloque(){
-    bloques.agregar_bloque(JSON.stringify(transacciones));
+    bloques.agregar(JSON.stringify(transacciones));
     transacciones.ventas=[];
     var lista_transacciones = CircularJSON.stringify(transacciones);
     sessionStorage.setItem("transacciones",JSON.stringify(lista_transacciones));

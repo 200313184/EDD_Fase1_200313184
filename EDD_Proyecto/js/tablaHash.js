@@ -166,7 +166,7 @@ class TablaHash {
         console.log(grafica);
     }
 
-    Graficar(vendedor) {
+    GraficarVendedor(vendedor) {
         console.log(this.hash);
         var grafica = "digraph Tabla{";
         grafica += "\r\n";
