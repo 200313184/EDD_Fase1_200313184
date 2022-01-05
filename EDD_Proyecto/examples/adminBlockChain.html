@@ -19,7 +19,7 @@
   <link href="../assets/demo/demo.css" rel="stylesheet" />
 </head>
 
-<body class="dark-edition" onload="inicializar_listas()">
+<body class="dark-edition"  onload="inicializar_listas()">
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
       <!--
@@ -32,10 +32,10 @@
         </a></div>
       <div class="sidebar-wrapper">
         <ul class="nav">
-          <li class="nav-item ">
+          <li class="nav-item">
             <a class="nav-link" href="./admin.html">
               <i class="material-icons">person</i>
-              <p>Administracion de usuarios</p>
+              <p>Administracion de proveedores</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -45,63 +45,21 @@
             </a>
           </li>
           <li class="nav-item ">
+            <a class="nav-link" href="./usuarios.html">
+              <i class="material-icons">content_paste</i>
+              <p>Reportes</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./productos.html">
+              <i class="material-icons">content_paste</i>
+              <p>Administracion de Productos</p>
+            </a>
+          </li>
+          <li class="nav-item ">
             <a class="nav-link" href="./adminBlockChain.html">
               <i class="material-icons">content_paste</i>
               <p>Administracion BlockChain</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./usuarios.html">
-              <i class="material-icons">content_paste</i>
-              <p>Usuarios</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./proveedores.html">
-              <i class="material-icons">content_paste</i>
-              <p>Proveedores</p>
-            </a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="./cliente.html">
-              <i class="material-icons">content_paste</i>
-              <p>Clientes</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./reporteCalendario.html">
-              <i class="material-icons">content_paste</i>
-              <p>Calendario</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./inventario.html">
-              <i class="material-icons">content_paste</i>
-              <p>Inventario</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./ventas.html">
-              <i class="material-icons">content_paste</i>
-              <p>Ventas</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./rutas.html">
-              <i class="material-icons">content_paste</i>
-              <p>Rutas</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./rutaOptima.html">
-              <i class="material-icons">content_paste</i>
-              <p>Ruta optima</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./blockChain.html">
-              <i class="material-icons">content_paste</i>
-              <p>BlockChain</p>
             </a>
           </li>
           <li class="nav-item">
@@ -120,34 +78,32 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Reporte</h4>
-                  <p class="card-category">Clientes</p>
+                  <h4 class="card-title">Cambio de nounce</h4>
+                  <p class="card-category">Cantidad valida de ceros</p>
                 </div>
                 <div class="card-body">
                   <form>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">ID</label>
-                          <input type="text" id="id_vendedor" class="form-control">
-                        </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">VALOR</label>
+                        <input type="text" id="id_dificultad" class="form-control">
+                        <button type="button" class="btn btn-primary pull-right">Cambiar</button>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-primary pull-right" onclick="graficar_repcliente()">Graficar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Blockchain</h4>
+                  <p class="card-category">Registrar bloque</p>
+                </div>
+                <div class="card-body">
+                  <form>
+                    <button type="button" class="btn btn-primary pull-right" onclick="agregar_bloque()">Registrar</button>
                     <div class="clearfix"></div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="exampleFormControlTextarea1">Texto dot</label>
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="15"></textarea>
-                        </div>
-                      </div>
-                      <div class="col-md-4" id="main">
-                        <div class="form-group">
-                          <img src="../images/img-01.png" class="img-fluid" alt="Responsive image">
-                        </div>
-                      </div>
-                    </div>  
                   </form>
                 </div>
               </div>
@@ -155,11 +111,6 @@
           </div>
         </div>
       </div>
-      <script>
-        const x = new Date().getFullYear();
-        let date = document.getElementById('date');
-        date.innerHTML = '&copy; ' + x + date.innerHTML;
-      </script>
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -180,18 +131,17 @@
   <script src="../assets/js/material-dashboard.js?v=2.1.0"></script>
   <!-- Material Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/viz.js/1.3.0/viz.js"></script>
-  <script src="../js/circular-json.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js"></script>
-  <script src="../js/sjcl.js"></script>
-  <script src="../js/empleados.js"></script>
-  <script src="../js/matriz.js"></script>
-  <script src="../js/tablaHash.js"></script>
-  <script src="../js/arbolb.js"></script>
-  <script src="../js/grafo.js"></script>
-  <script src="../js/proveedores.js"></script>
-  <script src="../js/repCliente.js"></script>
+    <script src="../js/circular-json.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha256.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/enc-base64-min.js"></script>
+    <script src="../js/sjcl.js"></script>
+    <script src="../js/empleados.js"></script>
+    <script src="../js/matriz.js"></script>
+    <script src="../js/tablaHash.js"></script>
+    <script src="../js/proveedores.js"></script>
+    <script src="../js/arbolb.js"></script>
+    <script src="../js/grafo.js"></script>
+    <script src="../js/blockChain.js"></script>
+    <script src="../js/repBlockChain.js"></script>
 </body>
-
 </html>
