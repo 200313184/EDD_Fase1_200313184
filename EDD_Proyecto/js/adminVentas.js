@@ -10,7 +10,6 @@ let productos = [];
 let total = 0;
 
 let transacciones = {};
-transacciones.ventas = [];
 
 function inicializar_listas(){
     console.log("Entro a inicializar listas ");
@@ -46,7 +45,6 @@ function inicializar_listas(){
 
     var tem_transacciones = JSON.parse(sessionStorage.getItem("transacciones"));
     transacciones = [];
-    transacciones.ventas=[];
     tem_transacciones = CircularJSON.parse(tem_transacciones);
     Object.assign(transacciones,tem_transacciones);
 
@@ -90,7 +88,7 @@ function agregar_venta(){
         //let cli = clientes.buscarCliente(nombre_cliente);
         //if(cli != null){
             ventas.insertarVenta(id_hash, vend, nombre_cliente, total, compras);
-            transacciones.ventas.push({"id":id_hash,"vendedor":nombre_vendedor,"cliente":nombre_cliente,"productos":productos});
+            transacciones.push({"id":id_hash,"vendedor":nombre_vendedor,"cliente":nombre_cliente,"productos":productos});
         //}
     }
 

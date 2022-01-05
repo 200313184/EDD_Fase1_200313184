@@ -79,6 +79,7 @@ class BlockChain{
     grafica +="\r\n";
     grafica += "}";
     console.log(grafica);
+    return grafica;
   }
   
 }

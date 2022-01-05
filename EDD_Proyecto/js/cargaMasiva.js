@@ -5,7 +5,6 @@ let inventario = new arbolB();
 let rutas = new Grafo();
 let ventas = new TablaHash();
 let transacciones = {};
-transacciones.ventas = [];
 
 function inicializar_listas(){
     console.log("Entro a inicializar listas ");
@@ -41,7 +40,6 @@ function inicializar_listas(){
 
     var tem_transacciones = JSON.parse(sessionStorage.getItem("transacciones"));
     transacciones = [];
-    transacciones.ventas=[];
     tem_transacciones = CircularJSON.parse(tem_transacciones);
     Object.assign(transacciones,tem_transacciones);
 
@@ -117,9 +115,9 @@ function CargarVentas(json){
                 }
             //}
             ventas.insertarVenta(x.id, vend, x.cliente, total, lista_productos);
-            transacciones.ventas.push({"id":x.id,"vendedor":x.vendedor,"cliente":x.cliente,"productos":productos});
+            transacciones.push({"id":x.id,"vendedor":x.vendedor,"cliente":x.cliente,"productos":productos});
         }
-        console.log(JSON.stringify(transacciones.ventas));
+        console.log(JSON.stringify(transacciones));
     }
 
     var lista_ventas = CircularJSON.stringify(ventas);
