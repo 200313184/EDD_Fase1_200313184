@@ -122,10 +122,13 @@ class listaMeses{
 
 class nodoAvl{
     constructor(id, nombre, edad, correo, password){
+        this.clave = JSON.parse(sessionStorage.getItem("clave"));
         this.id = parseInt(id, 10);
-        this.nombre = nombre;
+        var hashNombre = CryptoJS.HmacSHA256(nombre, this.clave);
+        this.nombre = CryptoJS.enc.Hex.stringify(hashNombre);
         this.edad = edad;
-        this.password = password;
+        var hashPass = CryptoJS.HmacSHA256(password, this.clave);
+        this.password = CryptoJS.enc.Hex.stringify(hashPass);
         this.correo = correo;
         this.izq = null;
         this.der = null;
@@ -317,7 +320,7 @@ class avl{
     graficar_nodos(raiz_actual){
         let nodos ="";
         if(raiz_actual != null){
-            nodos+= "n"+raiz_actual.id+"[label=\"<f0>|<f1>"+raiz_actual.id + ":"+raiz_actual.nombre + "-" + raiz_actual.correo+"|<f2>\"]\n";
+            nodos+= "n"+raiz_actual.id+"[label=\"<f0>|<f1>"+raiz_actual.id + "\\n Nombre: "+raiz_actual.nombre + "\\n Password: " + raiz_actual.password+"|<f2>\"]\n";
             nodos+=this.graficar_nodos(raiz_actual.izq);
             nodos+=this.graficar_nodos(raiz_actual.der);
         }
