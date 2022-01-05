@@ -125,20 +125,28 @@ class arbolB{
                 if(pivote.paginaIzq != null){
                     let ret =  this.insertarRecursivo(pivote.paginaIzq, nuevo);
                     if(ret != null){
-                        pagina.insertarNodo(ret);
+                        var copy = Object.assign(new paginaB(), pagina);
+                        copy.insertarNodo(ret);
+                        Object.assign(pagina, copy);
                     }
                 }else{
-                    pagina.insertarNodo(nuevo);
+                    var copy = Object.assign(new paginaB(), pagina);
+                    copy.insertarNodo(nuevo);
+                    Object.assign(pagina, copy);
                 }
                 break;
             }else if(pivote.sig == null){
                 if(pivote.paginaDer != null){
                     let ret =  this.insertarRecursivo(pivote.paginaDer, nuevo);
                     if(ret != null){
-                        pagina.insertarNodo(ret);
+                        var copy = Object.assign(new paginaB(), pagina);
+                        copy.insertarNodo(ret);
+                        Object.assign(pagina, copy);
                     }
                 }else{
-                    pagina.insertarNodo(nuevo);
+                    var copy = Object.assign(new paginaB(), pagina);
+                    copy.insertarNodo(nuevo);
+                    Object.assign(pagina, copy);
                 }
                 break;
             }
