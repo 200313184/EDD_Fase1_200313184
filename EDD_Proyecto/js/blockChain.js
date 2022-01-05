@@ -34,7 +34,7 @@ class BlockChain{
   }
 
   agregar(data){
-    let previusHash=0000;
+    let previusHash='0000';
     if(this.indice!=0){
         previusHash=this.cadena[this.indice-1].hash;
     }
@@ -44,8 +44,8 @@ class BlockChain{
   }
 
   Graficar(){
-    console.log(bloques);
-    grafica = "digraph Tabla{";
+    console.log(this.bloques);
+    let grafica = "digraph Tabla{";
     grafica += "\r\n";
     grafica += "node[shape=plaintext];";
     grafica += "\r\n";
