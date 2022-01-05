@@ -184,7 +184,7 @@ class TablaHash {
         for (let num = 0; num < this.sizeHash; num++) {
             grafica += "<f"+num+">";
             if(this.hash[num]!=null){
-                if(this.hash[num].vendedor==vendedor){
+                if(this.hash[num].vendedor.id==vendedor.id){
                     grafica+=this.hash[num].idVenta+"- Vendedor: "+this.hash[num].vendedor.nombre+"- Cliente: "+this.hash[num].cliente+" Total: "+ this.hash[num].totalVenta;
                 }                
             }            
@@ -197,7 +197,7 @@ class TablaHash {
         grafica += "node [width = 1.5];"
         for (let num = 0; num < this.sizeHash; num++) {
             if(this.hash[num]!=null){
-                if(this.hash[num].vendedor==vendedor){
+                if(this.hash[num].vendedor.id==vendedor.id){
                     grafica += "\r\n";
                     var copy = Object.assign(new listaProductos(), this.hash[num].listaProductos);
                     grafica += "node"+num+copy.graficar();

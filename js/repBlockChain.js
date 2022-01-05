@@ -58,6 +58,7 @@ function inicializar_listas(){
 }
 
 function agregar_bloque(){
+    console.log(transacciones.ventas);
     transacciones.push({"ventas":transacciones.ventas});
     bloques.agregar(JSON.stringify(transacciones));
     transacciones.ventas=[];

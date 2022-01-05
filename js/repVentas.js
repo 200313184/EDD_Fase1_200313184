@@ -56,3 +56,21 @@ function inicializar_listas(){
     main.appendChild(image);	// PNG
 
 }
+
+function GraficarVendedor(){
+    let id_vend = document.getElementById('id_vendedor').value;
+    var vend = vendedores.buscar(id_vend);
+    var sample = ventas.GraficarVendedor(vend);
+    document.getElementById('exampleFormControlTextarea1').value = sample;
+
+    var options = {
+    format: 'svg'
+    // format: 'png-image-element'
+    }
+
+    var image = Viz(sample, options);
+    var main = document.getElementById('main');
+
+    main.innerHTML = image;		// SVG
+    main.appendChild(image);	// PNG
+}
