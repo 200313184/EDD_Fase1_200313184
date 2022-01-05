@@ -9,6 +9,11 @@ let bloques = new BlockChain();
 let dificultad = 3;
 
 function inicializar_listas(){
+    var tem_claves = JSON.parse(sessionStorage.getItem("clave"));
+    if(tem_claves != null){
+        sessionStorage.setItem("clave",JSON.stringify("secret"));
+    }
+
     var tem_vendedores = JSON.parse(sessionStorage.getItem("vendedores"));
     if(tem_vendedores != null){
         vendedores = new avl();
