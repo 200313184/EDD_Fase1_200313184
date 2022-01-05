@@ -80,7 +80,7 @@ function agregar_venta(){
     let nombre_vendedor = document.getElementById('nombre_vendedor').value;
     let nombre_cliente = document.getElementById('nombre_cliente').value;
 
-    let vend = vendedores.buscarNombre(nombre_vendedor);
+    let vend = vendedores.buscar(usuario.id);
     if(vend != null){
         let clientes = new listaCliente();
         Object.assign(clientes, vend.lista_clientes);
