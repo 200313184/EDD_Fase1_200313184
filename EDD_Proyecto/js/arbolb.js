@@ -206,7 +206,7 @@ class arbolB{
             pag = "p" + nodoIni.id + "[label=\"<f0>";
             let contador = 1;
             while(nodoIni != null){
-                pag += "|<f" + contador + ">" +  nodoIni.id + "|";
+                pag += "|<f" + contador + ">" +  nodoIni.id + "\\n" + nodoIni.nombre + "\\n" + nodoIni.cantidad+ "|";
                 contador++;
                 pag += "<f" + contador + ">";
                 contador++;

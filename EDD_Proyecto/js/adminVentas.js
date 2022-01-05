@@ -60,7 +60,7 @@ function agregar_producto(){
     let producto = inventario.buscar(id_producto);
     if(producto != null){
         console.log("Esta agregando");
-        lista_productos.agregar(producto,cantidad);
+        compras.agregar(producto,cantidad);
         productos.push({"id":id_producto,"cantidad":cantidad});
         total += producto.precio * cantidad;
         producto.cantidad = producto.cantidad - cantidad;
@@ -73,11 +73,11 @@ function agregar_producto(){
 function iniciar_lista(){
     compras = new listaProductos();
     productos=[];
+    alert("Lista iniciada con exito");
 }
 
 function agregar_venta(){
     let id_hash = document.getElementById('id_hash').value;
-    let nombre_vendedor = document.getElementById('nombre_vendedor').value;
     let nombre_cliente = document.getElementById('nombre_cliente').value;
 
     let vend = vendedores.buscar(usuario.id);
@@ -88,7 +88,7 @@ function agregar_venta(){
         //let cli = clientes.buscarCliente(nombre_cliente);
         //if(cli != null){
             ventas.insertarVenta(id_hash, vend, nombre_cliente, total, compras);
-            transacciones.push({"id":id_hash,"vendedor":nombre_vendedor,"cliente":nombre_cliente,"productos":productos});
+            transacciones.push({"id":id_hash,"vendedor":vend.nombre,"cliente":nombre_cliente,"productos":productos});
         //}
     }
 
