@@ -3,6 +3,10 @@ let proveedores = new abb();
 let inventario = new arbolB();
 let rutas = new Grafo();
 let ventas = new TablaHash();
+let transacciones = {};
+transacciones.ventas = [];
+let bloques = new BlockChain();
+let dificultad = 3;
 
 function inicializar_listas(){
     var tem_vendedores = JSON.parse(sessionStorage.getItem("vendedores"));
@@ -51,6 +55,26 @@ function inicializar_listas(){
         rutas = new Grafo();
     }
 
+    var tem_transacciones = JSON.parse(sessionStorage.getItem("transacciones"));
+    if(tem_transacciones != null){
+        transacciones = [];
+        transacciones.ventas=[];
+        transacciones = CircularJSON.parse(tem_transacciones);
+        Object.assign(transacciones,tem_transacciones);
+    }else{
+        transacciones = [];
+        transacciones.ventas=[];
+    }
+
+    var tem_bloques = JSON.parse(sessionStorage.getItem("bloques"));
+    if(tem_bloques != null){
+        bloques = new BlockChain();
+        bloques = CircularJSON.parse(tem_bloques);
+        Object.assign(bloques,tem_bloques);
+    }else{
+        bloques = new BlockChain();
+    }
+
 }
  
 function validar_usuario(){
@@ -67,6 +91,10 @@ function validar_usuario(){
         sessionStorage.setItem("rutas",JSON.stringify(lista_rutas));
         var lista_ventas = CircularJSON.stringify(ventas);
         sessionStorage.setItem("ventas",JSON.stringify(lista_ventas));
+        var lista_transacciones = CircularJSON.stringify(transacciones);
+        sessionStorage.setItem("transacciones",JSON.stringify(lista_transacciones));
+        var lista_bloques = CircularJSON.stringify(bloques);
+        sessionStorage.setItem("bloques",JSON.stringify(lista_bloques));
         let usu = vendedores.buscar(200313184);
         var l_usuario = CircularJSON.stringify(usu);
         sessionStorage.setItem("usuario",JSON.stringify(l_usuario));
@@ -87,6 +115,10 @@ function validar_usuario(){
                 sessionStorage.setItem("rutas",JSON.stringify(lista_rutas));
                 var lista_ventas = CircularJSON.stringify(ventas);
                 sessionStorage.setItem("ventas",JSON.stringify(lista_ventas));
+                var lista_transacciones = CircularJSON.stringify(transacciones);
+                sessionStorage.setItem("transacciones",JSON.stringify(lista_transacciones));
+                var lista_bloques = CircularJSON.stringify(bloques);
+                sessionStorage.setItem("bloques",JSON.stringify(lista_bloques));
                 var l_usuario = CircularJSON.stringify(usuario);
                 sessionStorage.setItem("usuario",JSON.stringify(l_usuario));
                 location.href="./examples/vendedor.html";

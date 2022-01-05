@@ -1,66 +1,13 @@
-class bloque{
-    constructor(indice,data,previusHash){
-        this.indice = indice;
-        this.data = data;
-        this.fecha = Date.now();
-        this.previusHash = previusHash;
-        this.hash = this.crearHash();
-        this.nonce =0;
-
-        this.prueba_de_trabajo(3);
-    }
-
-    crearHash(){
-      //usar libreria
-      var hash = CryptoJS.HmacSHA256(this.indice+this.data+this.fecha+this.previusHash+this.nonce, "secret");
-      var hashInHex = CryptoJS.enc.Hex.stringify(hash);
-      return hashInHex;
-    }
-
-    prueba_de_trabajo(dificultad){
-      while(this.hash.substring(0,dificultad) !== Array(dificultad+1).join("0")){
-        this.nonce++;
-        this.hash = this.crearHash();
-        //console.log("->nonce " +this.nonce);
-      }
-      //console.log(this.hash);
-      return this.hash;
-    }
-}
-
-class cadena{
-  constructor(){
-    this.indice=0;
-    this.cadena =[];
-    this.cadena.push(this.Bloque_genesis());
-  }
-
-  Bloque_genesis(){
-    let genesis = new bloque(this.indice,"bloque Genesis","");
-    this.indice++;
-    return genesis;
-  }
-
-  agregar(data){
-    let nuevo = new bloque(this.indice,data,this.cadena[this.indice-1].hash);
-    this.indice++;
-    this.cadena.push(nuevo);
-  }
-
-  recorrer(){
-    for(let item of this.cadena){
-      console.log(item);
-    }
-  }
-  
-}
-
 let vendedores = new avl();
 let proveedores = new abb();
 let usuario = new nodoAvl();
 let inventario = new arbolB();
 let rutas = new Grafo();
 let ventas = new TablaHash();
+let transacciones = {};
+transacciones.ventas = [];
+let bloques = new BlockChain();
+
 
 function inicializar_listas(){
     console.log("Entro a inicializar listas ");
@@ -94,42 +41,28 @@ function inicializar_listas(){
     tem_ventas = CircularJSON.parse(tem_ventas);
     Object.assign(ventas,tem_ventas);
 
+    var tem_transacciones = JSON.parse(sessionStorage.getItem("transacciones"));
+    transacciones = [];
+    transacciones.ventas=[];
+    tem_transacciones = CircularJSON.parse(tem_transacciones);
+    Object.assign(transacciones,tem_transacciones);
+
+    var tem_bloques = JSON.parse(sessionStorage.getItem("bloques"));
+    bloques =  new BlockChain();
+    tem_bloques = CircularJSON.parse(tem_bloques);
+    Object.assign(bloques,tem_bloques);
+
     if(usuario.id == undefined || usuario.id == NaN){
         location.href="../login.html";
     }
+}
 
-    let blockChain = new cadena();
-
-    let info=[]
-
-    let nueva_venta = {
-    "id":3,
-    "vendedor":"vendedor3",
-    "cliente":"cliente1",
-    "productos":[
-        {
-        "id":1,
-        "cantidad":3
-        }
-    ]
-    };
-    info.push(nueva_venta)
-
-    info.push({
-    "id":1,
-    "vendedor":"vendedor1",
-    "cliente":"cliente1",
-    "productos":[
-        {
-        "id":1,
-        "cantidad":3
-        }
-    ]
-    }
-    )
-    //console.log(blockChain.cadena);
-    blockChain.agregar(JSON.stringify(info));
-    info =[];
-    blockChain.agregar(JSON.stringify(info));
-    blockChain.recorrer();
+function agregar_bloque(){
+    bloques.agregar_bloque(JSON.stringify(transacciones));
+    transacciones.ventas=[];
+    var lista_transacciones = CircularJSON.stringify(transacciones);
+    sessionStorage.setItem("transacciones",JSON.stringify(lista_transacciones));
+    var lista_bloques = CircularJSON.stringify(bloques);
+    sessionStorage.setItem("bloques",JSON.stringify(lista_bloques));
+    bloques.Graficar();
 }

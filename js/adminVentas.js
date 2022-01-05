@@ -6,7 +6,11 @@ let rutas = new Grafo();
 let ventas = new TablaHash();
 
 let compras = new listaProductos();
+let productos = [];
 let total = 0;
+
+let transacciones = {};
+transacciones.ventas = [];
 
 function inicializar_listas(){
     console.log("Entro a inicializar listas ");
@@ -40,6 +44,12 @@ function inicializar_listas(){
     tem_ventas = CircularJSON.parse(tem_ventas);
     Object.assign(ventas,tem_ventas);
 
+    var tem_transacciones = JSON.parse(sessionStorage.getItem("transacciones"));
+    transacciones = [];
+    transacciones.ventas=[];
+    tem_transacciones = CircularJSON.parse(tem_transacciones);
+    Object.assign(transacciones,tem_transacciones);
+
     if(usuario.id == undefined || usuario.id == NaN){
         location.href="../login.html";
     }
@@ -53,6 +63,7 @@ function agregar_producto(){
     if(producto != null){
         console.log("Esta agregando");
         lista_productos.agregar(producto,cantidad);
+        productos.push({"id":id_producto,"cantidad":cantidad});
         total += producto.precio * cantidad;
         producto.cantidad = producto.cantidad - cantidad;
     }
@@ -63,6 +74,7 @@ function agregar_producto(){
 
 function iniciar_lista(){
     compras = new listaProductos();
+    productos=[];
 }
 
 function agregar_venta(){
@@ -78,10 +90,13 @@ function agregar_venta(){
         let cli = clientes.buscarCliente(nombre_cliente);
         if(cli != null){
             ventas.insertarVenta(id_hash, vend, cli, total, compras);
+            transacciones.ventas.push({"id":id_hash,"vendedor":nombre_vendedor,"cliente":nombre_cliente,"productos":productos});
         }
     }
 
     var lista_ventas = CircularJSON.stringify(ventas);
     sessionStorage.setItem("ventas",JSON.stringify(lista_ventas));
+    var lista_transacciones = CircularJSON.stringify(transacciones);
+    sessionStorage.setItem("transacciones",JSON.stringify(lista_transacciones));
     alert("Venta agregado con exito");
 }
