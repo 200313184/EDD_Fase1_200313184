@@ -101,11 +101,11 @@ function CargarVentas(json){
             let clientes = new listaCliente();
             Object.assign(clientes, vend.lista_clientes);
 
-            let cli = clientes.buscarCliente(x.cliente);
+            //let cli = clientes.buscarCliente(x.cliente);
             let lista_productos = new listaProductos();
             let productos = [];
             let total = 0;
-            if(cli != null){
+            //if(cli != null){
                 for(y of x.productos){
                     let producto = inventario.buscar(y.id);
                     if(producto != null){
@@ -115,11 +115,11 @@ function CargarVentas(json){
                         producto.cantidad = producto.cantidad - y.cantidad;
                     }
                 }
-            }
-            ventas.insertarVenta(x.id, vend, cli, total, lista_productos);
+            //}
+            ventas.insertarVenta(x.id, vend, x.cliente, total, lista_productos);
             transacciones.ventas.push({"id":x.id,"vendedor":x.vendedor,"cliente":x.cliente,"productos":productos});
         }
-        console.log(JSON.stringify(transacciones));
+        console.log(JSON.stringify(transacciones.ventas));
     }
 
     var lista_ventas = CircularJSON.stringify(ventas);

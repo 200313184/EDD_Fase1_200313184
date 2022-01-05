@@ -143,7 +143,7 @@ class TablaHash {
         for (let num = 0; num < this.sizeHash; num++) {
             grafica += "<f"+num+">";
             if(this.hash[num]!=null){
-                grafica+=this.hash[num].idVenta+"- Cliente: "+this.hash[num].cliente.nombre+" Total: "+ this.hash[num].totalVenta;
+                grafica+=this.hash[num].idVenta+"- Cliente: "+this.hash[num].cliente+" Total: "+ this.hash[num].totalVenta;
             }
             
             if(this.sizeHash-1 != num){
@@ -165,6 +165,7 @@ class TablaHash {
         grafica += "\r\n";
         grafica += "}";
         console.log(grafica);
+        return grafica;
     }
 
     GraficarVendedor(vendedor) {
@@ -184,7 +185,7 @@ class TablaHash {
             grafica += "<f"+num+">";
             if(this.hash[num]!=null){
                 if(this.hash[num].vendedor==vendedor){
-                    grafica+=this.hash[num].idVenta+"- Vendedor: "+this.hash[num].vendedor.nombre+"- Cliente: "+this.hash[num].cliente.nombre+" Total: "+ this.hash[num].totalVenta;
+                    grafica+=this.hash[num].idVenta+"- Vendedor: "+this.hash[num].vendedor.nombre+"- Cliente: "+this.hash[num].cliente+" Total: "+ this.hash[num].totalVenta;
                 }                
             }            
             if(this.sizeHash-1 != num){
@@ -198,7 +199,8 @@ class TablaHash {
             if(this.hash[num]!=null){
                 if(this.hash[num].vendedor==vendedor){
                     grafica += "\r\n";
-                    grafica += "node"+num+this.hash[num].listaProductos.graficar();
+                    var copy = Object.assign(new listaProductos(), this.hash[num].listaProductos);
+                    grafica += "node"+num+copy.graficar();
                     grafica += "\r\n";
                     grafica += "nodet:f"+num+"->"+"node"+num+":n;"
                 } 
@@ -207,6 +209,7 @@ class TablaHash {
         grafica += "\r\n";
         grafica += "}";
         console.log(grafica);
+        return grafica;
     }
 }
 
