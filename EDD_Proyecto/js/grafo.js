@@ -336,6 +336,8 @@ class Grafo{
 
      // Sin auto-loo
     Dijkstra(matrix, start = 0) {
+        console.log(matrix);
+        console.log(start);
         let rows = matrix.length, 
         cols = matrix[0].length;
 
@@ -406,6 +408,8 @@ class Grafo{
         let mat = [];
         let arreglo = [];
         let pivoteX = this.inicio.filas;
+        arreglo = new Array(this.obtenerMaximo()).fill(Infinity);
+        mat.push(arreglo);
         while(pivoteX != null){
             let pivoteY = pivoteX.der;
             let tam = this.obtenerMaximo();
