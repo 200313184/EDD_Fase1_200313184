@@ -4,7 +4,6 @@ let inventario = new arbolB();
 let rutas = new Grafo();
 let ventas = new TablaHash();
 let transacciones = {};
-transacciones.ventas = [];
 let bloques = new BlockChain();
 let dificultad = 3;
 
@@ -63,12 +62,10 @@ function inicializar_listas(){
     var tem_transacciones = JSON.parse(sessionStorage.getItem("transacciones"));
     if(tem_transacciones != null){
         transacciones = [];
-        transacciones.ventas=[];
         transacciones = CircularJSON.parse(tem_transacciones);
         Object.assign(transacciones,tem_transacciones);
     }else{
         transacciones = [];
-        transacciones.ventas=[];
     }
 
     var tem_bloques = JSON.parse(sessionStorage.getItem("bloques"));

@@ -53,20 +53,6 @@ function inicializar_listas(){
     if(usuario.id == undefined || usuario.id == NaN){
         location.href="../login.html";
     }
-
-    var sample = bloques.Graficar();
-    document.getElementById('exampleFormControlTextarea1').value = sample;
-
-    var options = {
-    format: 'svg'
-    // format: 'png-image-element'
-    }
-
-    var image = Viz(sample, options);
-    var main = document.getElementById('main');
-
-    main.innerHTML = image;		// SVG
-    main.appendChild(image);
 }
 
 function agregar_bloque(){
