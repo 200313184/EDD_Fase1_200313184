@@ -36,7 +36,7 @@ class BlockChain{
   agregar(data){
     let previusHash='0000';
     if(this.indice!=0){
-        previusHash=this.cadena[this.indice-1].hash;
+        previusHash=this.bloques[this.indice-1].hash;
     }
     let nuevo = new bloque(this.indice,data,previusHash);
     this.indice++;
